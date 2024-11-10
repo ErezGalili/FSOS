@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes animation {
+
+}
+
+@font-face{
+
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: black;
+}
+
+header{
+
+}
+
+table{
+    border-collapse: collapse;
+    text-align: center;
+    border: 2px solid black;
+}
+
+th, td {
+    border: 1px solid gray;
+    padding: 2px;
+}
+
+tbody tr:nth-child(2n-1){
+    background: silver;
+}
+
+footer{
+
+}

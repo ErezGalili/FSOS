@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: darkblue;
+}
+
+@keyframes Animation1 {
+    0% {
+        width: 25%;
+    }
+
+    50% {
+        width: 50%;
+    }
+
+    100% {
+        width: 25%;
+    }
+}
+
+@keyframes Animation2 {
+    0% {
+        background-color: lightblue;
+        transform: rotate(5deg);
+    }
+
+    50% {
+        background-color: yellow;
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        background-color: lightblue;
+        transform: rotate(5deg);
+    }
+}
+
+@font-face {
+    font-family: Assistant;
+    src: url(assets/Fonts/Assistant-Regular.ttf);
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* h1{
+    display: column;
+    color: blue;
+    width: 200px;
+    background-color: yellow;
+    border: 4px solid blue;
+    text-align: center;
+    font-family: Assistant;
+    margin: auto;
+    margin-bottom: 2%;
+    margin-top: 10px;
+}
+
+p{
+    display: column;
+    color: blue;
+    width: 25%;
+    background-color: yellow;
+    border: 4px solid blue;
+    text-align: center;
+    font-family: Assistant;
+    margin-right: 100px;
+    margin-left: 100px;
+    margin: auto;
+}
+
+.myP{
+    margin-top: 0.5%;
+    background-color: bisque;
+    color: darkred;
+}
+
+#PiD{
+    margin-top: 0.5%;
+    background-color: rgb(255, 196, 196);
+    color: darkred;
+}
+
+.myP:hover{
+    margin-top: 0.5%;
+    background-color: rgb(168, 168, 168);
+    color: rgb(22, 0, 89);
+} */
+
+div {
+    border: 5px solid saddlebrown;
+    width: 25%;
+    height: 15%;
+    background-color: cyan;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 2%;
+    font-family: Assistant;
+}
+
+div:nth-child(1) {
+    box-shadow: 10px 20px 15px rgb(0, 0, 0, 0.5);
+}
+
+div:nth-child(2) {
+    background-image: linear-gradient(90deg, purple, green);
+}
+
+div:nth-child(3) {
+    transform: rotate(30deg) scale(1.2);}
+
+div:nth-child(4):hover {
+    background-color: gray;
+}
+
+div:nth-child(5) {
+    animation: Animation2 3s infinite
+}
+
+div:nth-child(6) {
+    font-family: roboto;
+    font-display: ExtraLight;
+}
