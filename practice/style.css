@@ -7,7 +7,27 @@ body{
     background-image: linear-gradient(90deg, red, yellow, blue, orange, green, purple);
 }
 
-.grid-container{
+.square{
+    width: 200px;
+    height: 200px;
+    border: 3px solid black;
+}
+
+@media screen and (min-height: 500px) {
+    .square{
+        background-color: blue;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .square{
+        background-color: red;
+        border-radius: 15px;
+    }
+}
+
+
+/* .grid-container{
     display: grid;
     width: 450px;
     height: 450px;
@@ -57,4 +77,4 @@ body{
 
 .item7{
     background-color: black;
-}
+} */
