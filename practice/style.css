@@ -7,6 +7,20 @@ body{
     background-image: linear-gradient(90deg, red, yellow, blue, orange, green, purple);
 }
 
+.cont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.circle{
+
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    border: 1px solid black;
+}
+
 .square{
     width: 200px;
     height: 200px;
