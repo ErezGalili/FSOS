@@ -27,4 +27,17 @@ function arrRootPow(){
     console.log(arr3)
 }
 
-arrRootPow()
+function tensUnits() {
+    let sum = 0;
+  
+    for (let i = 0; i < 40; i++) {
+      const num = Math.floor(Math.random() * 90) + 10;
+      const units = num % 10;
+      const tens = Math.floor(num / 10);
+  
+      if (units > tens) {
+          console.log(sum);
+      }
+    }
+  }
+  
