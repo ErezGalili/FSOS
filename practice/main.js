@@ -35,3 +35,79 @@ class Squre {
 const s = new Squre(15)
 s.res()
 
+class Dice{
+    #faceUp = 0
+    constructor() {
+        this.#faceUp = this.roll()
+    }
+    get faceUp() {
+        return this.#faceUp;
+    }
+    roll() {
+        this.#faceUp = Math.ceil(Math.random() * 6)
+        return this.#faceUp
+    }
+}
+const d = new Dice()
+console.log(d.faceUp)
+
+function factorial(n){
+    if(n == 1) return 1;
+    return n * factorial(n - 1)
+}
+
+function factorial2(n){
+    let sum = 1
+    for (let i = 1; i <= n; i++){
+        sum *= i
+    }
+    return sum
+}
+
+function fibo(n){
+    if (n <= 2) return 1;
+    return fibo(n - 1) + fibo(n - 2)
+}
+
+console.log(fibo(15));
+
+
+class Friend {
+    #friend = undefined
+    constructor(friend) {
+        if (friend instanceof Friend) {
+            this.#friend = friend
+        }
+    }
+    get friend() {
+        return this.#friend
+    }
+    setFriend(newFriend) {
+        if (newFriend instanceof Friend) {
+            this.#friend = newFriend
+        }
+    }
+    knows(target, visited = new Set()) {
+        if (this === target) return true
+        if (!this.#friend) return false
+        if (visited.has(this)) return false
+        visited.add(this)
+        return this.#friend.knows(target, visited)
+    }
+}
+
+const alice = new Friend();
+const bob = new Friend();
+const charlie = new Friend();
+
+alice.setFriend(bob);
+bob.setFriend(charlie);
+
+console.log(alice.knows(charlie));
+console.log(bob.knows(alice));
+console.log(charlie.knows(alice));
+
+charlie.setFriend(alice);
+console.log(alice.knows(charlie));
+console.log(charlie.knows(bob));
+console.log(bob.knows(alice));
