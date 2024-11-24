@@ -22,4 +22,16 @@ function isValidParentheses(s) {
     return stack.length === 0
 }
 
-console.log(isValidParentheses("({[]})"));
+class Squre {
+    constructor(edge){
+        this.edge = edge;
+        this.sqr = edge**2;
+    }
+    res(){
+        console.log('The area is '+ this.sqr+ ' sqr')
+    }
+}
+
+const s = new Squre(15)
+s.res()
+
