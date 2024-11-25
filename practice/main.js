@@ -23,19 +23,19 @@ function isValidParentheses(s) {
 }
 
 class Squre {
-    constructor(edge){
+    constructor(edge) {
         this.edge = edge;
-        this.sqr = edge**2;
+        this.sqr = edge ** 2;
     }
-    res(){
-        console.log('The area is '+ this.sqr+ ' sqr')
+    res() {
+        console.log('The area is ' + this.sqr + ' sqr')
     }
 }
 
 const s = new Squre(15)
 s.res()
 
-class Dice{
+class Dice {
     #faceUp = 0
     constructor() {
         this.#faceUp = this.roll()
@@ -51,20 +51,20 @@ class Dice{
 const d = new Dice()
 console.log(d.faceUp)
 
-function factorial(n){
-    if(n == 1) return 1;
+function factorial(n) {
+    if (n == 1) return 1;
     return n * factorial(n - 1)
 }
 
-function factorial2(n){
+function factorial2(n) {
     let sum = 1
-    for (let i = 1; i <= n; i++){
+    for (let i = 1; i <= n; i++) {
         sum *= i
     }
     return sum
 }
 
-function fibo(n){
+function fibo(n) {
     if (n <= 2) return 1;
     return fibo(n - 1) + fibo(n - 2)
 }
@@ -103,11 +103,62 @@ const charlie = new Friend();
 alice.setFriend(bob);
 bob.setFriend(charlie);
 
-console.log(alice.knows(charlie));
-console.log(bob.knows(alice));
-console.log(charlie.knows(alice));
+// console.log(alice.knows(charlie));
+// console.log(bob.knows(alice));
+// console.log(charlie.knows(alice));
 
-charlie.setFriend(alice);
-console.log(alice.knows(charlie));
-console.log(charlie.knows(bob));
-console.log(bob.knows(alice));
+// charlie.setFriend(alice);
+// console.log(alice.knows(charlie));
+// console.log(charlie.knows(bob));
+// console.log(bob.knows(alice));
+
+//JS
+
+const log = document.querySelector("#log");
+
+class Pillow {
+    constructor(softness) {
+        this.softness = softness || Math.ceil(Math.random() * 5);
+    }
+}
+
+class Person {
+    constructor(name, soft_pref) {
+        this.name = name;
+        this.soft_pref = soft_pref;
+        this.sleeping = false;
+    }
+    sleep(p) {
+        let sentence;
+        if(this.sleeping){
+            sentence = "zzzzzzzz...."
+        }else if (!(p instanceof Pillow)) {
+            sentence = "This is Not a Pillow!!";
+        } else if (p.softness > this.soft_pref) {
+            sentence = "too soft";
+        } else if (p.softness < this.soft_pref) {
+            sentence = "not soft enough";
+        } else {
+            sentence = "just right";
+            this.sleeping = true;
+        }
+        this.#talk(sentence);
+    }
+    wakeup() {
+        if (this.sleeping) {
+            this.#talk(" Says: I'm up");
+        } else {
+            this.sleeping = true;
+        }
+    }
+    #talk(sentence){
+        log.innerHTML += `${this.name} says: "${sentence}"<br>`
+    }
+
+}
+
+const P = new Pillow(3);
+
+let per = new Person("David", 3);
+
+per.sleep(P);
