@@ -119,6 +119,22 @@ const log = document.querySelector("#log");
 class Pillow {
     constructor(softness) {
         this.softness = softness || Math.ceil(Math.random() * 5);
+        this.currentUser = null;
+    }
+
+    isAvailable() {
+        return this.currentUser === null;
+    }
+    assignUser(user) {
+        if (this.isAvailable()) {
+            this.currentUser = user;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    releaseUser() {
+        this.currentUser = null;
     }
 }
 
@@ -128,12 +144,15 @@ class Person {
         this.soft_pref = soft_pref;
         this.sleeping = false;
     }
+
     sleep(p) {
         let sentence;
-        if(this.sleeping){
-            sentence = "zzzzzzzz...."
-        }else if (!(p instanceof Pillow)) {
+        if (this.sleeping) {
+            sentence = "zzzzzzzz....";
+        } else if (!(p instanceof Pillow)) {
             sentence = "This is Not a Pillow!!";
+        } else if (!p.isAvailable()) {
+            sentence = `This pillow is already taken by ${p.currentUser.name}!`;
         } else if (p.softness > this.soft_pref) {
             sentence = "too soft";
         } else if (p.softness < this.soft_pref) {
@@ -141,24 +160,32 @@ class Person {
         } else {
             sentence = "just right";
             this.sleeping = true;
+            p.assignUser(this);
         }
         this.#talk(sentence);
     }
-    wakeup() {
+    wakeup(p) {
         if (this.sleeping) {
-            this.#talk(" Says: I'm up");
-        } else {
-            this.sleeping = true;
+            this.#talk("I'm up");
+            this.sleeping = false;
+            if (p instanceof Pillow && p.currentUser === this) {
+                p.releaseUser();
+            }
         }
     }
-    #talk(sentence){
-        log.innerHTML += `${this.name} says: "${sentence}"<br>`
+    #talk(sentence) {
+        log.innerHTML += `${this.name} says: "${sentence}"<br>`;
     }
-
 }
 
 const P = new Pillow(3);
 
-let per = new Person("David", 3);
+let david = new Person("David", 3);
+let john = new Person("John", 3);
 
-per.sleep(P);
+david.sleep(P);
+john.sleep(P); 
+
+david.wakeup(P);
+john.sleep(P);
+
