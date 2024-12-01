@@ -145,15 +145,18 @@ class Person {
         this.sleeping = false;
     }
 
-    sleep(p) {
+    sleep(...p) {
         let sentence;
         if (this.sleeping) {
             sentence = "zzzzzzzz....";
-        } else if (!(p instanceof Pillow)) {
-            sentence = "This is Not a Pillow!!";
-        } else if (!p.isAvailable()) {
-            sentence = `This pillow is already taken by ${p.currentUser.name}!`;
-        } else if (p.softness > this.soft_pref) {
+            return;
+        } 
+        p = p.filter(pillow => pillow instanceof Pillow && !pillow.isAvailable)
+        if (!p.length) {
+            sentence = "no pillow available";
+        }
+        
+        if (p.softness > this.soft_pref) {
             sentence = "too soft";
         } else if (p.softness < this.soft_pref) {
             sentence = "not soft enough";
@@ -189,3 +192,17 @@ john.sleep(P);
 david.wakeup(P);
 john.sleep(P);
 
+function findAllSubarrays(arr) {
+    const subsets = [[]];
+    for (let i = 0; i < arr.length; i++) {
+        const currentLength = subsets.length;
+        for (let j = 0; j < currentLength; j++) {
+            const newSubset = [...subsets[j], arr[i]];
+            subsets.push(newSubset);
+        }
+    }
+    return subsets;
+}
+
+const arr = [3,5,7]
+console.log(findAllSubarrays(arr))
