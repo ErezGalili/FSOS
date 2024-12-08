@@ -5,23 +5,31 @@ class Dice {
     #faceUp
     constructor(faces = 6) {
         this.#faces = faces;
-        this.#faceUp = 0;
+        this.#faceUp = 1;
         this.div = document.createElement("div");
         this.div.className = "dice";
+        this.div.addEventListener("click", () => this.roll());
         diceContainer.appendChild(this.div);
         this.roll();
     }
 
     roll() {
-        this.#faceUp = Math.ceil(Math.random() * this.#faces);
-        this.div.textContent = this.#faceUp;
-        return this.#faceUp;
+        return new Promise((resolve) => {
+            let count = 0;
+            const interval = setInterval(() => {
+                this.#faceUp = Math.ceil(Math.random() * this.#faces);
+                this.div.textContent = this.#faceUp;
+                count++;
+                if (count === 60) {
+                    clearInterval(interval);
+                    resolve(this.#faceUp);
+                }
+            }, 15);
+        });
     }
 }
 
 const d = new Dice();
-
-
 
 // const diceContainer = document.getElementById("dice-container");
 // const addDiceBtn = document.getElementById("add-dice-btn");
