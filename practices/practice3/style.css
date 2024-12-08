@@ -3,6 +3,20 @@
     padding: 0;
 }
 
-body{
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
+    margin-top: 50px;
+}
+.dice {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: lightblue;
+    border: 2px solid black;
+    border-radius: 5px;
 }

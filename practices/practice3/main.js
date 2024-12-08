@@ -1,32 +1,100 @@
-const btn = document.getElementById("btn")
-const img = document.getElementById("img")
-const h2 = document.getElementById("text")
-let counter = 0
-let score = 0
+const diceContainer = document.getElementById("dice-container");
 
-btn.addEventListener("click",()=>{
-    if(counter < 3){
-        const random = Math.ceil(Math.random()*6)
-        score+=random
-        const imgSrc = `images/dice${random}.png`
-        img.setAttribute("src", imgSrc)
-        counter++
+class Dice {
+    #faces
+    #faceUp
+    constructor(faces = 6) {
+        this.#faces = faces;
+        this.#faceUp = 0;
+        this.div = document.createElement("div");
+        this.div.className = "dice";
+        diceContainer.appendChild(this.div);
+        this.roll();
     }
-    if(counter === 3 && score >= 12){
-        h2.textContent = "You won a million dollar"
-        h2.style.color = "green"
-        counter++
-    } else if(counter === 3) {
-        h2.textContent = "You lost a million dollar"
-        h2.style.color = "red"
-        counter++
+
+    roll() {
+        this.#faceUp = Math.ceil(Math.random() * this.#faces);
+        this.div.textContent = this.#faceUp;
+        return this.#faceUp;
     }
-})
+}
+
+const d = new Dice();
 
 
 
+// const diceContainer = document.getElementById("dice-container");
+// const addDiceBtn = document.getElementById("add-dice-btn");
+// const h2 = document.getElementById("text");
 
+// class Dice {
+//     #faces;
+//     #faceUp;
 
+//     constructor(faces = 6) {
+//         this.#faces = faces;
+//         this.roll();
+//     }
+
+//     roll() {
+//         this.#faceUp = Math.ceil(Math.random() * this.#faces);
+//         return this.#faceUp;
+//     }
+
+//     get faceUp() {
+//         return this.#faceUp;
+//     }
+// }
+
+// class DiceComponent {
+//     constructor(faces = 6) {
+//         this.dice = new Dice(faces);
+
+//         this.container = document.createElement("div");
+//         this.img = document.createElement("img");
+//         this.img.alt = "Dice";
+//         this.btn = document.createElement("button");
+//         this.btn.textContent = `Roll ${faces}-faced Dice`;
+
+//         this.btn.addEventListener("click", () => this.rollDice());
+//         this.container.appendChild(this.img);
+//         this.container.appendChild(this.btn);
+//         diceContainer.appendChild(this.container);
+
+//         this.rollDice();
+//     }
+
+//     rollDice() {
+//         const result = this.dice.roll();
+//         const imgSrc = `images/dice${result}.png`;
+//         this.img.setAttribute("src", imgSrc);
+
+//         this.img.onerror = () => {
+//             this.img.style.display = "none";
+//             const text = document.createElement("p");
+//             text.textContent = `Rolled: ${result}`;
+//             text.style.fontSize = "1.2rem";
+//             this.container.appendChild(text);
+//             this.img.onerror = null;
+//         };
+
+//         h2.textContent = `You rolled a ${result}!`;
+//     }
+// }
+
+// addDiceBtn.addEventListener("click", () => {
+//     const faces = prompt("Enter the number of faces for the new dice:", "6");
+//     const numFaces = parseInt(faces, 10);
+
+//     if (isNaN(numFaces) || numFaces < 2) {
+//         alert("Please enter a valid number greater than 1.");
+//         return;
+//     }
+
+//     new DiceComponent(numFaces);
+// });
+
+// new DiceComponent(6);
 
 // const btn = document.getElementById("btn")
 // const h2 = document.getElementById("text")
