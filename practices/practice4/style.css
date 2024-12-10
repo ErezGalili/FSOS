@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    text-align: center;
+    background-color: grey;
+    height: 15%;
+}
+
+img{
+    width: 100%;
+}
+
+.row{
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.col-3{
+    padding: 10px;
+    text-align: center;
+    width: 30rem;
+    border: 2px white solid;
+}
