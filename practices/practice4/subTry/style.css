@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    align-items: center;
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    border: 2px gray solid;
+}
+
+img{
+    width: auto;
+}
