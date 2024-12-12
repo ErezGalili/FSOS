@@ -5,12 +5,36 @@ class Counter extends react.PureComponent {
   render() {
     let count
     if (this.state?.counter) count = this.state.counter;
-       else count = 0;
-    const increase = () => this.setState({ counter: count + 1 })
+    else if (this.props.start) count = +this.props.start
+    else count = 0;
+    let type;
+    type = (count%2) ? 'odd number' : 'even number';
+    let myJump;
+    myJump = (this.props.jump) ? +this.props.jump : myJump = 1
+    const increase = () => this.setState({ counter: count + myJump })
     return (
-      <div className="counter" onClick={increase}>
-        <button>Count: {count}</button>
+      <div>
+        <button className="counter" onClick={increase}>Count: {count}</button>
+        <p>{type}</p>
       </div>
+    )
+  }
+}
+
+class ColorSqure extends react.PureComponent {
+  render() {
+    let myBackgrounColor
+    (this.state?.color) ? myBackgrounColor = this.state.color : myBackgrounColor = 'white'
+    const colorChanged = event=>{
+      const color = event.target.value
+      this.setState({color})
+    }
+    return (<>
+    <label>
+      <div className="squre" style={{backgroundColor: myBackgrounColor}}></div>
+      <input type="color" onChange={colorChanged} className='squreInput'/>
+      </label>
+      </>
     )
   }
 }
@@ -20,7 +44,10 @@ class App extends react.PureComponent {
     return (
       <div className="App">
         <h1>My App</h1>
-        <Counter/>
+        <Counter jump="3"/>
+        <Counter start="5"/>
+        <ColorSqure />
+        <ColorSqure />
       </div>
     )
   }

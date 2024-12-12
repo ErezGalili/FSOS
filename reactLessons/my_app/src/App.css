@@ -3,6 +3,28 @@
   padding: 0;
 }
 
-App {
+.App {
   text-align: center;
+  align-content: center;
+}
+
+.counter{
+  font-size: 50px;
+  user-select: none;
+  border-radius: 10px;
+}
+
+label{
+  display: inline-block;
+}
+
+.squre{
+  width: 100px;
+  height: 100px;
+  border: solid 1px white;
+  margin: 10px;
+}
+
+.squreInput{
+ display: none;
 }
