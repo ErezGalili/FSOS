@@ -7,3 +7,13 @@ body{
     text-align: center;
     align-items: center;
 }
+
+img {
+    height: 20%;
+    width: 20%;
+}
+
+.menorah{
+    width: 100%;
+    height: 100%;
+}
