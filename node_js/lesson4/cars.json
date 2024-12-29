@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Audi",
+        "model": "A3",
+        "price": 20000
+    },
+    {
+        "id": 2,
+        "name": "BMW",
+        "model": "X5",
+        "price": 30000
+    }
+]
