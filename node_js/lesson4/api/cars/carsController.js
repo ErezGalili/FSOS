@@ -8,7 +8,7 @@ function getAllCars(req, res) {
 
 function getCarById(req, res) {
     const car = cars.find(c => c.id == req.params.id);
-    if (!car) return res.status(404).send("Car not found");
+    if (!car) return res.status(404).json({status: failed, message: "Car not found"});
     res.json(car);
 }
 
