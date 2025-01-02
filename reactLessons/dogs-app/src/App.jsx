@@ -1,6 +1,30 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
+const getFromLocalStorage = (key) => {
+  const str = localStorage.getItem(key);
+  return str ? JSON.parse(str) : [];
+}
+
+const saveToLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+const isLiked = (item, liked) => {
+  return liked.includes(item);
+}
+
+const addToLiked = (item, liked) => {
+  if (!liked.includes(item)) liked.push(item);
+  saveToLocalStorage('favoriteImages', liked);
+};
+
+const removeFromLiked = (item, liked) => {
+  const index = liked.indexOf(item);
+  if (index !== -1) liked.splice(index, 1);
+  saveToLocalStorage('favoriteImages', liked);
+};
+
 function Image({ url, breed, favorite, onToggleFavorite }) {
   return (
     <div
@@ -23,7 +47,6 @@ function Image({ url, breed, favorite, onToggleFavorite }) {
       >
         <i className={`fa ${favorite ? 'fa-heart' : 'fa-heart-o'}`} aria-hidden="true" />
       </button>
-
     </div>
   );
 }
@@ -49,7 +72,7 @@ function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
           key={index}
           url={url}
           breed={breed}
-          favorite={favoriteImages.includes(url)}
+          favorite={isLiked(url, favoriteImages)}
           onToggleFavorite={onToggleFavorite}
         />
       ))}
@@ -87,12 +110,14 @@ function SideBar({ onSelectBreed }) {
 
 function App() {
   const [selectedBreed, setSelectedBreed] = useState('shihtzu');
-  const [favoriteImages, setFavoriteImages] = useState([]);
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages'));
 
   const handleToggleFavorite = (url) => {
-    if (favoriteImages.includes(url)) {
+    if (isLiked(url, favoriteImages)) {
+      removeFromLiked(url, favoriteImages);
       setFavoriteImages(favoriteImages.filter((image) => image !== url));
     } else {
+      addToLiked(url, favoriteImages);
       setFavoriteImages([...favoriteImages, url]);
     }
   };
@@ -123,3 +148,4 @@ function App() {
 }
 
 export default App;
+
