@@ -1,47 +1,59 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-function BreedImages({ breed }) {
-  const [images, setImages] = useState([]);
-  useEffect(() => {
-    if (breed) {
-      fetch(`https://dog.ceo/api/breed/${breed}/images/random/20`)
-        .then(res => res.json())
-        .then(data => setImages(data.message));
-    }
-  }, [breed]);
-  if (images.length === 0) return null;
+function Image({ url, breed, favorite, onToggleFavorite }) {
   return (
-    <div className="gallery">
-      {images.map((url, index) => (
-        <img key={index} src={url} alt={`${breed}`} />
-      ))}
+    <div
+      className="image-container"
+      role="button"
+      tabIndex={0}
+      onClick={() => onToggleFavorite(url)}
+      onKeyPress={(e) =>
+        (e.key === 'Enter' || e.key === ' ') && onToggleFavorite(url)
+      }
+    >
+      <img src={url} alt={breed} className="image" />
+      <button
+        className={`heart-button ${favorite ? 'favorite' : ''}`}
+        aria-label="toggle favorite"
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleFavorite(url);
+        }}
+      >
+        <i className={`fa ${favorite ? 'fa-heart' : 'fa-heart-o'}`} aria-hidden="true" />
+      </button>
+
     </div>
   );
 }
 
-function SearchBreeds() {
-  const [search, setSearch] = useState('');
-  const [breeds, setBreeds] = useState([]);
+function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
+  const [images, setImages] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (search && !breeds.includes(search)) {
-      setBreeds([...breeds, search]);
+  useEffect(() => {
+    if (breed) {
+      fetch(`https://dog.ceo/api/breed/${breed}/images/random/12`)
+        .then((res) => res.json())
+        .then((data) => setImages(data.message))
+        .catch((error) => console.error('Error fetching images:', error));
     }
-    setSearch('');
-  };
+  }, [breed]);
+
+  if (!images || images.length === 0) return <h3>Loading images...</h3>;
 
   return (
-    <form onSubmit={handleSubmit} className="search-container">
-      <input
-        type="text"
-        value={search}
-        placeholder="Search a breed..."
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div className="gallery">
+      {images.map((url, index) => (
+        <Image
+          key={index}
+          url={url}
+          breed={breed}
+          favorite={favoriteImages.includes(url)}
+          onToggleFavorite={onToggleFavorite}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -50,15 +62,20 @@ function SideBar({ onSelectBreed }) {
 
   useEffect(() => {
     fetch('https://dog.ceo/api/breeds/list/all')
-      .then(res => res.json())
-      .then(data => setBreeds(Object.keys(data.message)));
+      .then((res) => res.json())
+      .then((data) => setBreeds(Object.keys(data.message)))
+      .catch((error) => console.error('Error fetching breeds:', error));
   }, []);
 
   return (
     <nav className="sidebar">
-      <select onChange={e => onSelectBreed(e.target.value)}>
+      <h2>Select a breed</h2>
+      <select
+        onChange={(e) => onSelectBreed(e.target.value)}
+        className="select"
+      >
         <option value="">Select a breed</option>
-        {breeds.map(breed => (
+        {breeds.map((breed) => (
           <option key={breed} value={breed}>
             {breed}
           </option>
@@ -69,17 +86,36 @@ function SideBar({ onSelectBreed }) {
 }
 
 function App() {
-  const [selectedBreed, setSelectedBreed] = useState(null);
+  const [selectedBreed, setSelectedBreed] = useState('shihtzu');
+  const [favoriteImages, setFavoriteImages] = useState([]);
+
+  const handleToggleFavorite = (url) => {
+    if (favoriteImages.includes(url)) {
+      setFavoriteImages(favoriteImages.filter((image) => image !== url));
+    } else {
+      setFavoriteImages([...favoriteImages, url]);
+    }
+  };
 
   return (
     <div className="container">
       <header>
         <h1>Dog Breeds</h1>
       </header>
-      <main style={{ display: 'flex' }}>
-        <SideBar onSelectBreed={setSelectedBreed} />
-        <div style={{ flex: 1 }}>
-          {selectedBreed ? <BreedImages breed={selectedBreed} /> : <h2>Select a breed</h2>}
+      <main>
+        <div className="sidebar-container">
+          <SideBar onSelectBreed={setSelectedBreed} />
+        </div>
+        <div className="gallery-container">
+          {selectedBreed ? (
+            <BreedImages
+              breed={selectedBreed}
+              favoriteImages={favoriteImages}
+              onToggleFavorite={handleToggleFavorite}
+            />
+          ) : (
+            <h2>Select a breed to view images</h2>
+          )}
         </div>
       </main>
     </div>
@@ -87,4 +123,3 @@ function App() {
 }
 
 export default App;
-
