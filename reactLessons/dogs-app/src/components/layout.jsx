@@ -3,6 +3,7 @@ import { getFromLocalStorage, isLiked, addToLiked, removeFromLiked } from '../ut
 import { BreedImages, Favorites } from './imageCollection.jsx';
 import SideBar from './sidebar.jsx';
 import Header from './header.jsx';
+import './css/layout.css';
 
 function Layout(){
     const [selectedBreed, setSelectedBreed] = useState('shihtzu');

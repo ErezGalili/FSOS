@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './css/sidebar.css';
 
 function SideBar({ onSelectBreed, onShowFavorites }) {
   const [breeds, setBreeds] = useState([]);

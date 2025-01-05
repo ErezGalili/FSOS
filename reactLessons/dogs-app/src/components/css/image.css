@@ -1,0 +1,13 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .image {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: contain;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }

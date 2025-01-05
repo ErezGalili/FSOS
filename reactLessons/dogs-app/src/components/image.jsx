@@ -1,4 +1,5 @@
 import React from 'react'
+import './css/image.css'
 
 function Image({ url, breed, favorite, onToggleFavorite }) {
   return (
