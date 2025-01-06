@@ -10,6 +10,9 @@ function App() {
       <Routes>
         <Route index element={<Layout />} />
         <Route path='/favorites' element={<Layout />} />
+        <Route path='/page' element={<DummyLayout />}>
+          <Route path=':num' element={<DummyPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
