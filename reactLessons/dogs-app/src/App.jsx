@@ -1,11 +1,17 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout.jsx';
+import Page, { DummyPage } from './components/dummyPages.jsx';
 import './App.css';
+import DummyLayout from './components/dummyPages.jsx';
 
-function App(){
+function App() {
   return (
-    <div className="container">
-      <Layout/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Layout />} />
+        <Route path='/favorites' element={<Layout />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
