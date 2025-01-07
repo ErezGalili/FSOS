@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import './css/sidebar.css';
 
-function SideBar({ onSelectBreed, onShowFavorites }) {
+function SideBar({ onSelectBreed }) {
   const [breeds, setBreeds] = useState([]);
 
   useEffect(() => {
@@ -25,9 +26,10 @@ function SideBar({ onSelectBreed, onShowFavorites }) {
           </option>
         ))}
       </select>
-      <button className="favorites-button" onClick={onShowFavorites}>
+      <NavLink to="/favorites" className="favorites-button">
         Show Favorites
-      </button>
+      </NavLink>
+        <NavLink to="/">Home</NavLink>
     </nav>
   );
 }

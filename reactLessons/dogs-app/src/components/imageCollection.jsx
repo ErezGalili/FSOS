@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import Image from './image.jsx';
-import { isLiked } from '../util/likedUtils';
+import { isLiked, getFromLocalStorage, addToLiked, removeFromLiked } from '../util/likedUtils';
 
 function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
   const [images, setImages] = useState([]);
@@ -31,6 +32,29 @@ function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
   );
 }
 
+function BreedImagesWrapper() {
+  const { selectedBreed } = useOutletContext();
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages') || []);
+
+  const handleToggleFavorite = (url) => {
+    if (isLiked(url, favoriteImages)) {
+      removeFromLiked(url, favoriteImages);
+      setFavoriteImages(favoriteImages.filter((image) => image !== url));
+    } else {
+      addToLiked(url, favoriteImages);
+      setFavoriteImages([...favoriteImages, url]);
+    }
+  };
+
+  return (
+    <BreedImages
+      breed={selectedBreed}
+      favoriteImages={favoriteImages}
+      onToggleFavorite={handleToggleFavorite}
+    />
+  );
+}
+
 function Favorites({ favoriteImages, onToggleFavorite }) {
   if (!favoriteImages || favoriteImages.length === 0) return <h3>No favorites selected yet!</h3>;
 
@@ -49,4 +73,25 @@ function Favorites({ favoriteImages, onToggleFavorite }) {
   );
 }
 
-export { BreedImages, Favorites };
+function FavoritesWrapper() {
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages') || []);
+
+  const handleToggleFavorite = (url) => {
+    if (isLiked(url, favoriteImages)) {
+      removeFromLiked(url, favoriteImages);
+      setFavoriteImages(favoriteImages.filter((image) => image !== url));
+    } else {
+      addToLiked(url, favoriteImages);
+      setFavoriteImages([...favoriteImages, url]);
+    }
+  };
+
+  return (
+    <Favorites
+      favoriteImages={favoriteImages}
+      onToggleFavorite={handleToggleFavorite}
+    />
+  );
+}
+
+export { BreedImagesWrapper, FavoritesWrapper };
