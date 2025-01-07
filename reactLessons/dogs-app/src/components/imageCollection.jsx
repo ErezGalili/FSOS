@@ -1,7 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import Image from './image.jsx';
 import { isLiked, getFromLocalStorage, addToLiked, removeFromLiked } from '../util/likedUtils';
+
+export function RandomImages() {
+  const [images, setImages] = useState([]);
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages'));
+
+  useEffect(() => {
+    fetch('https://dog.ceo/api/breeds/image/random/12')
+      .then((res) => res.json())
+      .then((data) => setImages(data.message))
+      .catch((error) => console.error('Error fetching images:', error));
+  }, []);
+
+  const handleToggleFavorite = (url) => {
+    if (isLiked(url, favoriteImages)) {
+      setFavoriteImages(removeFromLiked(url, favoriteImages));
+    } else {
+      setFavoriteImages(addToLiked(url, favoriteImages));
+    }
+  };
+
+  if (!images || images.length === 0) return <h3>Loading images...</h3>;
+
+  return (
+    <div className="gallery">
+      {images.map((url, index) => (
+        <Image 
+          key={index} 
+          url={url} 
+          breed="Random" 
+          favorite={isLiked(url, favoriteImages)}
+          onToggleFavorite={handleToggleFavorite} 
+        />
+      ))}
+    </div>
+  );
+}
 
 function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
   const [images, setImages] = useState([]);
@@ -11,6 +47,13 @@ function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
       fetch(`https://dog.ceo/api/breed/${breed}/images/random/12`)
         .then((res) => res.json())
         .then((data) => setImages(data.message))
+        .then((data) => {
+          if (data.status === 'error') {
+            setImages([]);
+          } else {
+            setImages(data.message);
+          }
+        })
         .catch((error) => console.error('Error fetching images:', error));
     }
   }, [breed]);
@@ -33,16 +76,14 @@ function BreedImages({ breed, favoriteImages, onToggleFavorite }) {
 }
 
 function BreedImagesWrapper() {
-  const { selectedBreed } = useOutletContext();
-  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages') || []);
+  const { selectedBreed } = useOutletContext() || useParams();
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages'));
 
   const handleToggleFavorite = (url) => {
     if (isLiked(url, favoriteImages)) {
-      removeFromLiked(url, favoriteImages);
-      setFavoriteImages(favoriteImages.filter((image) => image !== url));
+      setFavoriteImages(removeFromLiked(url, favoriteImages));
     } else {
-      addToLiked(url, favoriteImages);
-      setFavoriteImages([...favoriteImages, url]);
+      setFavoriteImages(addToLiked(url, favoriteImages));
     }
   };
 
@@ -74,16 +115,10 @@ function Favorites({ favoriteImages, onToggleFavorite }) {
 }
 
 function FavoritesWrapper() {
-  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages') || []);
+  const [favoriteImages, setFavoriteImages] = useState(getFromLocalStorage('favoriteImages'));
 
   const handleToggleFavorite = (url) => {
-    if (isLiked(url, favoriteImages)) {
-      removeFromLiked(url, favoriteImages);
-      setFavoriteImages(favoriteImages.filter((image) => image !== url));
-    } else {
-      addToLiked(url, favoriteImages);
-      setFavoriteImages([...favoriteImages, url]);
-    }
+    setFavoriteImages(removeFromLiked(url, favoriteImages));
   };
 
   return (

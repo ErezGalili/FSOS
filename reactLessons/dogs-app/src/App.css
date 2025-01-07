@@ -5,3 +5,19 @@
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.active {
+  font-weight: bold;
+  color: red;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
