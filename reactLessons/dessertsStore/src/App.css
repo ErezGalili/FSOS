@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.homeDiv,
+.galleryDiv {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.galleryMain
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.liIng{
+  height: 80px;
+  overflow-y: scroll;
+}
+
+.link{
+  font-size: 30px;
+  color: black;
+  text-decoration: none;
+  padding: 4px;
+}
+
+.active{
+  color: red;
+}

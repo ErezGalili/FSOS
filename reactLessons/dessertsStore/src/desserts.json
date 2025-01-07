@@ -1,0 +1,258 @@
+[
+    {
+        "id": 1,
+        "dessert": "Chocolate Lava Cake",
+        "ingredients": ["chocolate", "butter", "sugar", "eggs", "flour", "vanilla extract"],
+        "description": "A rich and decadent dessert with a warm, gooey chocolate center.",
+        "image": "./images/pic1.jpg",
+        "price": "$8.99"
+    },
+    {
+        "id": 2,
+        "dessert": "Tiramisu",
+        "ingredients": ["mascarpone cheese", "coffee", "ladyfingers", "cocoa powder", "eggs", "sugar", "rum"],
+        "description": "An Italian classic made with layers of coffee-soaked ladyfingers and mascarpone cream.",
+        "image": "./images/pic2.jpg",
+        "price": "$7.50"
+    },
+    {
+        "id": 3,
+        "dessert": "Cheesecake",
+        "ingredients": ["cream cheese", "sugar", "eggs", "graham crackers", "butter", "vanilla extract"],
+        "description": "A creamy and smooth dessert with a graham cracker crust and a rich cheese filling.",
+        "image": "./images/pic3.jpg",
+        "price": "$6.75"
+    },
+    {
+        "id": 4,
+        "dessert": "Pavlova",
+        "ingredients": ["egg whites", "sugar", "cornstarch", "vinegar", "vanilla extract", "whipped cream", "fruit"],
+        "description": "A meringue-based dessert with a crispy exterior and soft interior, topped with whipped cream and fresh fruit.",
+        "image": "./images/pic4.jpg",
+        "price": "$7.25"
+    },
+    {
+        "id": 5,
+        "dessert": "Crème Brûlée",
+        "ingredients": ["cream", "sugar", "egg yolks", "vanilla bean", "caramelized sugar"],
+        "description": "A creamy custard topped with a layer of caramelized sugar for a delightful crunch.",
+        "image": "./images/pic5.jpg",
+        "price": "$8.50"
+    },
+    {
+        "id": 6,
+        "dessert": "Macarons",
+        "ingredients": ["almond flour", "egg whites", "sugar", "food coloring", "ganache or buttercream"],
+        "description": "Delicate French cookies with a crisp shell and a soft, chewy interior, filled with flavored ganache or buttercream.",
+        "image": "./images/pic6.jpg",
+        "price": "$9.00"
+    },
+    {
+        "id": 7,
+        "dessert": "Profiteroles",
+        "ingredients": ["choux pastry", "whipped cream", "chocolate sauce"],
+        "description": "Light and airy pastry balls filled with whipped cream and topped with rich chocolate sauce.",
+        "image": "./images/pic7.jpg",
+        "price": "$7.00"
+    },
+    {
+        "id": 8,
+        "dessert": "Apple Pie",
+        "ingredients": ["apples", "sugar", "cinnamon", "flour", "butter", "lemon juice", "pie crust"],
+        "description": "A traditional dessert made with a buttery crust and a spiced apple filling.",
+        "image": "./images/pic8.jpg",
+        "price": "$6.50"
+    },
+    {
+        "id": 9,
+        "dessert": "Baklava",
+        "ingredients": ["phyllo dough", "nuts", "honey", "butter", "cinnamon"],
+        "description": "A sweet and sticky pastry made with layers of phyllo dough, nuts, and honey.",
+        "image": "./images/pic9.jpg",
+        "price": "$7.75"
+    },
+    {
+        "id": 10,
+        "dessert": "Key Lime Pie",
+        "ingredients": ["key lime juice", "condensed milk", "egg yolks", "graham cracker crust", "whipped cream"],
+        "description": "A tart and tangy pie made with key lime juice and topped with whipped cream.",
+        "image": "./images/pic10.jpeg",
+        "price": "$6.95"
+    },
+    {
+        "id": 11,
+        "dessert": "Eclair",
+        "ingredients": ["choux pastry", "pastry cream", "chocolate glaze"],
+        "description": "An elongated pastry filled with pastry cream and topped with a glossy chocolate glaze.",
+        "image": "./images/pic11.jpeg",
+        "price": "$5.50"
+    },
+    {
+        "id": 12,
+        "dessert": "Black Forest Cake",
+        "ingredients": ["chocolate cake", "cherries", "whipped cream", "chocolate shavings", "kirsch"],
+        "description": "A layered chocolate cake with cherries and whipped cream, often flavored with kirsch.",
+        "image": "./images/pic12.jpeg",
+        "price": "$8.25"
+    },
+    {
+        "id": 13,
+        "dessert": "Lemon Tart",
+        "ingredients": ["lemon juice", "eggs", "sugar", "butter", "pastry crust"],
+        "description": "A bright and tangy lemon custard in a buttery pastry shell.",
+        "image": "./images/pic13.jpeg",
+        "price": "$6.75"
+    },
+    {
+        "id": 14,
+        "dessert": "Banoffee Pie",
+        "ingredients": ["bananas", "toffee", "whipped cream", "graham cracker crust"],
+        "description": "A sweet pie made with bananas, toffee, and whipped cream on a graham cracker crust.",
+        "image": "./images/pic14.jpeg",
+        "price": "$7.50"
+    },
+    {
+        "id": 15,
+        "dessert": "Cannoli",
+        "ingredients": ["ricotta cheese", "sugar", "cinnamon", "chocolate chips", "cannoli shells"],
+        "description": "Crispy pastry tubes filled with sweet ricotta cream and often studded with chocolate chips.",
+        "image": "./images/pic15.jpeg",
+        "price": "$4.95"
+    },
+    {
+        "id": 16,
+        "dessert": "Mille-Feuille",
+        "ingredients": ["puff pastry", "pastry cream", "powdered sugar"],
+        "description": "A classic French pastry made with layers of puff pastry and pastry cream, dusted with powdered sugar.",
+        "image": "./images/pic16.jpeg",
+        "price": "$8.00"
+    },
+    {
+        "id": 17,
+        "dessert": "Churros",
+        "ingredients": ["flour", "butter", "sugar", "cinnamon", "oil"],
+        "description": "Fried dough pastry coated in cinnamon sugar, often served with chocolate dipping sauce.",
+        "image": "./images/pic17.jpeg",
+        "price": "$5.00"
+    },
+    {
+        "id": 18,
+        "dessert": "Raspberry Sorbet",
+        "ingredients": ["raspberries", "sugar", "water", "lemon juice"],
+        "description": "A refreshing and tangy frozen dessert made with fresh raspberries.",
+        "image": "./images/pic18.jpeg",
+        "price": "$4.50"
+    },
+    {
+        "id": 19,
+        "dessert": "Sacher Torte",
+        "ingredients": ["chocolate", "apricot jam", "flour", "eggs", "sugar"],
+        "description": "A rich chocolate cake filled with apricot jam and covered in dark chocolate glaze.",
+        "image": "./images/pic19.jpeg",
+        "price": "$9.50"
+    },
+    {
+        "id": 20,
+        "dessert": "Mango Sticky Rice",
+        "ingredients": ["mango", "sticky rice", "coconut milk", "sugar", "salt"],
+        "description": "A traditional Thai dessert made with sweet sticky rice, ripe mango, and coconut milk.",
+        "image": "./images/pic20.jpeg",
+        "price": "$6.25"
+    },
+    {
+        "id": 21,
+        "dessert": "Panna Cotta",
+        "ingredients": ["cream", "sugar", "gelatin", "vanilla"],
+        "description": "A smooth and creamy Italian dessert made with sweetened cream and set with gelatin.",
+        "image": "./images/pic21.jpeg",
+        "price": "$6.50"
+    },
+    {
+        "id": 22,
+        "dessert": "Red Velvet Cake",
+        "ingredients": ["flour", "cocoa powder", "buttermilk", "cream cheese frosting", "red food coloring"],
+        "description": "A moist and fluffy cake with a hint of cocoa, topped with cream cheese frosting.",
+        "image": "./images/pic22.jpeg",
+        "price": "$7.00"
+    },
+    {
+        "id": 23,
+        "dessert": "Peach Cobbler",
+        "ingredients": ["peaches", "sugar", "flour", "butter", "cinnamon"],
+        "description": "A warm and comforting dessert made with baked peaches and a buttery topping.",
+        "image": "./images/pic23.jpeg",
+        "price": "$5.75"
+    },
+    {
+        "id": 24,
+        "dessert": "Strawberry Shortcake",
+        "ingredients": ["strawberries", "sugar", "whipped cream", "shortcake biscuits"],
+        "description": "A light and sweet dessert made with layers of strawberries, whipped cream, and shortcake.",
+        "image": "./images/pic24.jpeg",
+        "price": "$6.25"
+    },
+    {
+        "id": 25,
+        "dessert": "Tarte Tatin",
+        "ingredients": ["apples", "sugar", "butter", "puff pastry"],
+        "description": "An upside-down caramelized apple tart made with puff pastry.",
+        "image": "./images/pic25.jpeg",
+        "price": "$7.25"
+    },
+    {
+        "id": 26,
+        "dessert": "Flan",
+        "ingredients": ["milk", "eggs", "sugar", "vanilla"],
+        "description": "A creamy caramel custard dessert with a rich caramel sauce.",
+        "image": "./images/pic26.jpeg",
+        "price": "$5.50"
+    },
+    {
+        "id": 27,
+        "dessert": "Opera Cake",
+        "ingredients": ["almond sponge cake", "coffee syrup", "chocolate ganache", "buttercream"],
+        "description": "A French layered cake made with almond sponge cake, coffee syrup, and chocolate ganache.",
+        "image": "./images/pic27.jpeg",
+        "price": "$8.75"
+    },
+    {
+        "id": 28,
+        "dessert": "Mocha Mousse",
+        "ingredients": ["chocolate", "coffee", "cream", "sugar", "gelatin"],
+        "description": "A rich and creamy mousse flavored with chocolate and coffee.",
+        "image": "./images/pic28.jpeg",
+        "price": "$6.95"
+    },
+    {
+        "id": 29,
+        "dessert": "Peanut Butter Pie",
+        "ingredients": ["peanut butter", "cream cheese", "whipped cream", "graham cracker crust"],
+        "description": "A creamy and indulgent pie made with peanut butter and topped with whipped cream.",
+        "image": "./images/pic29.jpeg",
+        "price": "$6.50"
+    },
+    {
+        "id": 30,
+        "dessert": "Fruit Tart",
+        "ingredients": ["pastry crust", "custard", "fresh fruit", "apricot glaze"],
+        "description": "A crisp pastry crust filled with creamy custard and topped with fresh fruit and a shiny glaze.",
+        "image": "./images/pic30.jpeg",
+        "price": "$7.00"
+    },
+    {
+        "id": 31,
+        "dessert": "Bread Pudding",
+        "ingredients": ["bread", "milk", "eggs", "sugar", "cinnamon", "raisins"],
+        "description": "A comforting dessert made with cubes of bread soaked in a sweet custard and baked.",
+        "image": "./images/pic31.jpeg",
+        "price": "$5.25"
+    },
+    {
+        "id": 32,
+        "dessert": "Crepe Suzette",
+        "ingredients": ["crepes", "butter", "sugar", "orange juice", "orange zest", "liqueur"],
+        "description": "Thin crepes served with a sauce made from butter, sugar, orange juice, and a splash of liqueur.",
+        "image": "./images/pic32.jpeg",
+        "price": "$7.95"
+    }
+]
