@@ -55,6 +55,26 @@ app.get('/api/v1/persons', async (req, res) => {
         });
     }
 })
+app.get('/api/v1/persons/:id', async (req, res) => {
+    try {
+        const person = await Persons.findById(req.params.id);
+        if (!person) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Person not found'
+            });
+        }
+        res.status(200).json({
+            status: 'success',
+            data: person
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'error: ' + err.message
+        });
+    }
+})
 app.post('/api/v1/persons', async (req, res) => {
     try {
         const p1 = req.body;

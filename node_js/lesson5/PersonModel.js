@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ProductSchema = new Schema({
+const PersonSchema = new Schema({
+    id: {
+        type: Number,
+        required: [true, 'A person must have id'],
+        unique: true,
+        trim: true
+    },
     firstName: {
         type: String,
         required: [true, 'A person must have name'],
@@ -34,12 +40,12 @@ const ProductSchema = new Schema({
     created: Date
 });
 
-ProductSchema.pre('save', function(next) {
+PersonSchema.pre('save', function(next) {
     if (!this.created) {
         this.created = new Date();
     }
     next();
 });
 
-const Persons = mongoose.model('persons', ProductSchema);
+const Persons = mongoose.model('persons', PersonSchema);
 module.exports = Persons;
