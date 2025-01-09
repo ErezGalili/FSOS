@@ -20,4 +20,13 @@ const ProductSchema = new Schema({
     },
     created: Date
 });
-module.exports = mongoose.model('products', ProductSchema);
+
+ProductSchema.pre('save', function(next) {
+    if (!this.created) {
+        this.created = new Date();
+    }
+    next();
+});
+
+const Product = mongoose.model('products', ProductSchema);
+module.exports = Product;
