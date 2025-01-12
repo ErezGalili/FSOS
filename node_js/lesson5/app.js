@@ -6,9 +6,9 @@ const productsRouter = require('./api/products/productsRouter');
 const personsRouter = require('./api/persons/personsRouter');
 const userRouter = require("./api/Users/UserRouter");
 
-app.use('/api/v1/products', productsRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/persons', personsRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/persons', personsRouter);
+app.use('/api/users', userRouter);
 
 const uri = "mongodb+srv://ErezG:Aa123456@test.cxhcq.mongodb.net/?retryWrites=true&w=majority&appName=Test";
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };

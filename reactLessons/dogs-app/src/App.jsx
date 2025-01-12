@@ -3,6 +3,7 @@ import Layout from './components/layout.jsx';
 import { BreedImagesWrapper, FavoritesWrapper, RandomImages } from './components/imageCollection.jsx';
 import './App.css';
 import BreedNotFound from './components/BreedNotFound.jsx';
+import Sandbox from './components/sandbox.jsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="breeds/:breed" element={<BreedImagesWrapper />} />
         <Route path="*" element={<BreedNotFound />} />
       </Route>
+      <Route path='/sandbox' element={<Sandbox/>} />
     </Routes>
   );
 }
