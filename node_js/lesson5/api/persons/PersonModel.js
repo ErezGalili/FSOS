@@ -16,19 +16,19 @@ const PersonSchema = new Schema({
     family: {
         type: String,
         required: [true, 'A person must have last name'],
-        minlength: [2, 'Family is minimum 20 characters'],
+        minlength: [2, 'Family must be at least 2 characters'],
         maxlength: [1000, 'Family is maximum 1000 characters']
     },
     city: {
         type: String,
         required: [true, 'A person must live somewhere'],
-        minlength: [2, 'City is minimum 20 characters'],
+        minlength: [2, 'City must be at least 2 characters'],
         maxlength: [1000, 'City is maximum 1000 characters']
     },
     country: {
         type: String,
         required: [true, 'A person must live somewhere'],
-        minlength: [2, 'Country is minimum 20 characters'],
+        minlength: [2, 'Country must be at least 2 characters'],
         maxlength: [1000, 'Country is maximum 1000 characters']
     },
     salary: {

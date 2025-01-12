@@ -1,98 +1,33 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-const Product = require('./ProductModel');
-const Persons = require('./PersonModel')
-const { connect } = require('mongoose');
+const mongoose = require('mongoose');
+const productsRouter = require('./api/products/productsRouter');
+const personsRouter = require('./api/persons/personsRouter');
+const userRouter = require("./api/Users/UserRouter");
+
+app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/persons', personsRouter);
+
 const uri = "mongodb+srv://ErezG:Aa123456@test.cxhcq.mongodb.net/?retryWrites=true&w=majority&appName=Test";
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-connect(uri, clientOptions)
+
+mongoose.connect(uri, clientOptions)
     .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log(err));
+    .catch(err => console.error('Database connection error:', err));
 
-app.get('/api/v1/products', async (req, res) => {
-    try {
-        const items = await Product.find();
-        res.status(200).json({
-            status: 'success',
-            data: items
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: 'error: ' + err.message
-        });
-    }
-})
-
-app.post('/api/v1/products', async (req, res) => {
-    try {
-        const p1 = req.body;
-        const newItem = await Product.create(p1);
-        res.status(201).json({
-            status: 'success',
-            data: newItem
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: 'error: ' + err.message
-        });
-    }
+app.get('/', (req, res) => {
+    res.send('Hello World');
 });
 
-app.get('/api/v1/persons', async (req, res) => {
-    try {
-        const items = await Persons.find();
-        res.status(200).json({
-            status: 'success',
-            data: items
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: 'error: ' + err.message
-        });
-    }
-})
-app.get('/api/v1/persons/:id', async (req, res) => {
-    try {
-        const person = await Persons.findById(req.params.id);
-        if (!person) {
-            return res.status(404).json({
-                status: 'fail',
-                message: 'Person not found'
-            });
-        }
-        res.status(200).json({
-            status: 'success',
-            data: person
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: 'error: ' + err.message
-        });
-    }
-})
-app.post('/api/v1/persons', async (req, res) => {
-    try {
-        const p1 = req.body;
-        const newItem = await Persons.create(p1);
-        res.status(201).json({
-            status: 'success',
-            data: newItem
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: 'error: ' + err.message
-        });
-    }
+app.get('/api', (req, res) => {
+    res.send('API');
 });
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
+
 

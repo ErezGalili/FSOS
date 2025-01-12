@@ -9,7 +9,7 @@ const ProductSchema = new Schema({
     },
     description: {
         type: String,
-        minlength: [5, 'Description is minimum 20 characters'],
+        minlength: [5, 'Description must be at least 5 characters'],
         maxlength: [1000, 'Description is maximum 1000 characters']
     },
     price: {
