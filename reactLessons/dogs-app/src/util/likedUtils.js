@@ -1,24 +1,29 @@
-export const getFromLocalStorage = (key) => {
-  const stored = localStorage.getItem(key);
-  return stored ? JSON.parse(stored) : [];
-};
+import { getCurrentUser } from './userUtil';
 
-export const saveToLocalStorage = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
-};
+export function getFromLocalStorage() {
+  const userId = getCurrentUser().id;
+  const favorites = localStorage.getItem(`favoriteImages_${userId}`);
+  return favorites ? JSON.parse(favorites) : [];
+}
 
-export const isLiked = (url, favoriteImages) => {
+export function saveToLocalStorage(favorites) {
+  const userId = getCurrentUser().id;
+  localStorage.setItem(`favoriteImages_${userId}`, JSON.stringify(favorites));
+}
+
+export function isLiked(url, favoriteImages) {
   return favoriteImages.includes(url);
-};
+}
 
-export const addToLiked = (url, favoriteImages) => {
-  const updatedFavorites = [...favoriteImages, url];
-  saveToLocalStorage('favoriteImages', updatedFavorites);
-  return updatedFavorites;
-};
+export function addToLiked(url, favoriteImages) {
+  const newFavorites = [...favoriteImages, url];
+  saveToLocalStorage(newFavorites);
+  return newFavorites;
+}
 
-export const removeFromLiked = (url, favoriteImages) => {
-  const updatedFavorites = favoriteImages.filter(image => image !== url);
-  saveToLocalStorage('favoriteImages', updatedFavorites);
-  return updatedFavorites;
-};
+export function removeFromLiked(url, favoriteImages) {
+  const newFavorites = favoriteImages.filter(item => item !== url);
+  saveToLocalStorage(newFavorites);
+  return newFavorites;
+}
+

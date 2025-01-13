@@ -6,9 +6,54 @@ header {
     background-color: rgb(255, 0, 0);
     color: white;
     padding: 20px;
+    position: relative;
   }
   
   header h1 {
     font-size: 30px;
     margin-bottom: 10px;
   }
+
+.user-menu-container {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.user-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #4a90e2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  min-width: 150px;
+}
+
+.user-option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.user-option:hover {
+  background: #f5f5f5;
+}
+
+.user-option.active {
+  background: #e6e6e6;
+}

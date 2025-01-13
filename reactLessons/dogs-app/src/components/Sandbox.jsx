@@ -1,6 +1,9 @@
 import React, { useState, Children, createRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import './css/sandbox.css'
+import PopUp from './PopUp'
+import Header from './header'
+import Sidebar from './sidebar'
 
 function Container(props) {
     return (
@@ -52,12 +55,17 @@ function Displayer({ children }) {
 }
 
 const Sandbox = () => {
-    return (
-        <Displayer>
+    return (<>
+        <Container>
+        <PopUp>
             <h1>Sandbox</h1>
             <p>This is a sandbox component.</p>
             <p>Test</p>
-        </Displayer>
+        </PopUp>
+        <Header />
+        <PopUp/>
+        </Container>
+        </>
     )
 }
 

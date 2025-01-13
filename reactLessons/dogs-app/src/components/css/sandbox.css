@@ -1,3 +1,24 @@
+.popup-menu {
+    border: 2px solid #ccc;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    display: none;
+}
+
+.inner-popup {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .window{
     border: 2px solid #ccc;
     padding: 20px;
