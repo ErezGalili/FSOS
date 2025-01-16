@@ -112,7 +112,18 @@ router.delete('/user/:id/favorite/:favoriteId', async (req, res) => {
 router.get('/user/:id/favorites', async (req, res) => {
     try {
         const id = req.params.id;
-        const favorites = await Favorite.find({ user: id });
+        const { name, skip = 0, limit = 10 } = req.query;
+        
+        let query = { user: id };
+        
+        if (name) {
+            query.name = { $regex: name, $options: 'i' };
+        }
+        
+        const favorites = await Favorite.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit));
+            
         res.status(200).send(favorites);
     } catch (error) {
         res.status(500).send(error);
@@ -134,5 +145,19 @@ router.patch('/user/:id/favorites/:favoriteId/name', async (req, res) => {
     }
 });
 
+router.delete('/user/:id/favorites/:favoriteId/name', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const favoriteId = req.params.favoriteId;
+        const favorite = await Favorite.findByIdAndUpdate(favoriteId, { $unset: { name: '' } }, { new: true });
+        if (!favorite) {
+            res.status(404).send({ message: 'Favorite not found' });
+        } else {
+            res.status(200).send(favorite);
+        }
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
 
 module.exports = router;
