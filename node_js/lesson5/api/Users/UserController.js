@@ -2,8 +2,7 @@ const CurrentUser = require('./UserModel');
 
 exports.createUser = async (req, res, next) => {
     try {
-        const p1 = req.body;
-        const newItem = await CurrentUser.create(p1);
+        const newItem = await CurrentUser.create(req.body);
         res.status(201).json({
             status: "success",
             data: newItem

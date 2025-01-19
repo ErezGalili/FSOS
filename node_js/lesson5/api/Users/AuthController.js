@@ -1,52 +1,69 @@
 const User = require('./UserModel');
-const jwt = require('jsonwebtoken')
-const config = require('../../.env')
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
-exports.signup = function(req, res, next) {
-  const newUser = new User(req.body);
-  newUser.created = new Date();
-  newUser.modified = new Date();
+exports.signup = async function(req, res, next) {
+    try {
+        const newUser = new User({
+            ...req.body,
+            created: new Date(),
+            modified: new Date()
+        });
 
-  newUser
-    .save()
-    .then(user => {
-      const token = jwt.sign({id:user._id},config.secrets.jwt,{expiresIn:config.expireTime})
-      res.status(201).json({
-        status: 'success',
-        token,
-        user
-      });
-    })
-    .catch(err => {
-      res.status(404).json({
-        status: 'fail',
-        message: 'error: ' + err
-      });
-    });
+        const user = await newUser.save();
+        const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: config.jwtExpireTime });
+
+        res.status(201).json({
+            status: 'success',
+            token,
+            data: user.toJson()
+        });
+    } catch (err) {
+        if (err.code === 11000) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Email already exists'
+            });
+        }
+        res.status(500).json({
+            status: 'error',
+            message: err.message
+        });
+    }
 };
 
-  exports.login = function(req, res, next) {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).send('You need email and password');
-  }
+exports.login = async function(req, res, next) {
+    try {
+        const { email, password } = req.body;
+        
+        if (!email || !password) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Please provide email and password'
+            });
+        }
 
-  User.findOne({ email })
-    .then(user => {
-      if (!user || !user.authenticate(password)) {
-        return res.status(401).send('Invalid email or password');
-      }
+        const user = await User.findOne({ email });
+        if (!user || !(await user.authenticate(password))) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Invalid email or password'
+            });
+        }
 
-      const token = jwt.sign({ id: user._id }, config.secrets.jwt, {
-        expiresIn: config.expireTime
-      });
+        const token = jwt.sign({ id: user._id }, config.jwtSecret, {
+            expiresIn: config.jwtExpireTime
+        });
 
-      res.status(200).json({
-        status: 'success',
-        token
-      });
-    })
-    .catch(err => {
-      res.status(500).send('Internal server error');
-    });
+        res.status(200).json({
+            status: 'success',
+            token,
+            data: user. toJson()
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: err.message
+        });
+    }
 };
