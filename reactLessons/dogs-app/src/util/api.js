@@ -1,29 +1,28 @@
 const BASE_URL = 'http://127.0.0.1:3000/api';
 
 function APICall(url, method, body = null) {
-  const options = {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-    },};
-  if (body) {
-    options.body = JSON.stringify(body);
-  }
-  return fetch(`${BASE_URL}${url}`, options)
-    .then((res) => {
-      if (!res.ok) {
-        return res.json().then((error) => {
-          throw new Error(error.message || 'API call failed');
+    const options = {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    if (body) {
+        options.body = JSON.stringify(body);
+    }
+    return fetch(`${BASE_URL}${url}`, options)
+        .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.error || 'API call failed');
+            }
+            return data;
+        })
+        .catch((error) => {
+            console.error('API call error:', error);
+            throw error;
         });
-      }
-      return res.json();
-    })
-    .catch((error) => {
-      console.error('API call error:', error);
-      throw error;
-    });
 }
-
 
 export const newUser = name => APICall('/user', 'POST', { name });
 export const fetchUser = id => APICall(`/user/${id}`, 'GET');
@@ -36,10 +35,6 @@ export const fetchFavorites = (id, query = null) => APICall(`/user/${id}/favorit
 export const newFavorite = (id, imageSrc) => APICall(`/user/${id}/favorite`, 'POST', { imageSrc });
 export const deleteFavorite = (id, favoriteId) => APICall(`/user/${id}/favorites/${favoriteId}`, 'DELETE');
 export const updateFavorite = (id, favoriteId, name) => APICall(`/user/${id}/favorites/${favoriteId}/name`, 'PATCH', { name });
-
-
-
-
 
 //export const deleteDogById = id => APICall(`/user/${id}/favorites/${favoriteId}`, 'DELETE');
 // export const fetchFavorites = (id, query = null) => {

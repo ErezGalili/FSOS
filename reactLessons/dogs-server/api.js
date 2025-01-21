@@ -120,7 +120,7 @@ router.post('/user/:id/favorite', async (req, res)=>{
         if (oldFavorite){
             return res.status(400).json({success: false, data: 'The user already liked it'});
         }
-        const newFavorite = new Favorite({imageScrc: req.body.imageSrc, user: req.params.id});
+        const newFavorite = new Favorite({imageSrc: req.body.imageSrc, user: req.params.id});
         await newFavorite.save();
         res.status(201).json({success: true, data: newFavorite});
     } catch(error){

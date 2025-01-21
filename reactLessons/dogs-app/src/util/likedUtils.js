@@ -1,29 +1,36 @@
-import { getCurrentUser } from './userUtil';
+import { fetchFavorites, newFavorite, deleteFavorite } from './api';
 
-export function getFromLocalStorage() {
-  const userId = getCurrentUser().id;
-  const favorites = localStorage.getItem(`favoriteImages_${userId}`);
-  return favorites ? JSON.parse(favorites) : [];
+export async function getFavorites(userId) {
+  try {
+    const response = await fetchFavorites(userId);
+    return response.data || [];
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+    return [];
+  }
 }
 
-export function saveToLocalStorage(favorites) {
-  const userId = getCurrentUser().id;
-  localStorage.setItem(`favoriteImages_${userId}`, JSON.stringify(favorites));
+export async function addFavorite(userId, imageSrc) {
+  try {
+    const response = await newFavorite(userId, imageSrc);
+    return response.success;
+  } catch (error) {
+    console.error('Error adding favorite:', error);
+    return false;
+  }
+}
+
+export async function removeFavorite(userId, favoriteId) {
+  try {
+    const response = await deleteFavorite(userId, favoriteId);
+    return response.success;
+  } catch (error) {
+    console.error('Error removing favorite:', error);
+    return false;
+  }
 }
 
 export function isLiked(url, favoriteImages) {
-  return favoriteImages.includes(url);
-}
-
-export function addToLiked(url, favoriteImages) {
-  const newFavorites = [...favoriteImages, url];
-  saveToLocalStorage(newFavorites);
-  return newFavorites;
-}
-
-export function removeFromLiked(url, favoriteImages) {
-  const newFavorites = favoriteImages.filter(item => item !== url);
-  saveToLocalStorage(newFavorites);
-  return newFavorites;
+  return favoriteImages.some(fav => fav.imageSrc === url);
 }
 
