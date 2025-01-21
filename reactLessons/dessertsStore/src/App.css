@@ -54,3 +54,26 @@ footer {
 .active{
   color: red;
 }
+
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.button{
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #f1356d;
+  color: white;
+  cursor: pointer;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}

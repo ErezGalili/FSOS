@@ -24,6 +24,7 @@ function APICall(url, method, body = null) {
     });
 }
 
+
 export const newUser = name => APICall('/user', 'POST', { name });
 export const fetchUser = id => APICall(`/user/${id}`, 'GET');
 export const fetchUsers = () => APICall('/users', 'GET');
