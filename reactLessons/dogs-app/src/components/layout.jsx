@@ -4,6 +4,7 @@ import SideBar from './sidebar.jsx';
 import Header from './header.jsx';
 import './css/layout.css';
 
+
 function Layout() {
   const [selectedBreed, setSelectedBreed] = useState('');
   const { breed } = useParams();

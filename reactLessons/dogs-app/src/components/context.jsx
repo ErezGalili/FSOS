@@ -69,12 +69,29 @@ export const DogsContextProvider = ({ children }) => {
         }
     };
 
+    const setCurrentUserAndFavorites = async (user) => {
+        setCurrentUser(user);
+        if (user) {
+            try {
+                const response = await fetchFavorites(user._id);
+                setLikedImages(response.data || []);
+            } catch (error) {
+                console.error('Error fetching user favorites:', error);
+                setLikedImages([]);
+            }
+        } else {
+            setLikedImages([]);
+        }
+    };
+
     const addUser = async (name) => {
         try {
-            await newUser(name);
+            const response = await newUser(name);
             await updateAllUsers();
+            return response.data;
         } catch (error) {
             console.error('Error adding user:', error);
+            return null;
         }
     };
 
@@ -93,7 +110,7 @@ export const DogsContextProvider = ({ children }) => {
     return (
         <DogsContext.Provider value={{
             currentUser,
-            setCurrentUser,
+            setCurrentUser: setCurrentUserAndFavorites,
             likedImages,
             loading,
             users,

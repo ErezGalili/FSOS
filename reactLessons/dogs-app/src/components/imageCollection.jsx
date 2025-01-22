@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 import Image from './image.jsx';
 import { useDogsContext } from './context.jsx';
+import { isLiked } from '../util/likedUtils';
 
 export function RandomImages() {
   const [images, setImages] = useState([]);
