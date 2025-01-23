@@ -35,7 +35,7 @@ function Header() {
 
   return (
     <header>
-      <h1>Dog Breeds</h1>
+      <h1 className="header-title">Dog Breeds</h1>
       <div className="user-menu-container">
         {currentUser ? (
           <div 
@@ -45,7 +45,7 @@ function Header() {
             {currentUser.name[0]}
           </div>
         ) : (
-          <button onClick={() => setShowUserMenu(!showUserMenu)}>
+          <button className="select-user-button" onClick={() => setShowUserMenu(!showUserMenu)}>
             Select User
           </button>
         )}
@@ -57,23 +57,20 @@ function Header() {
                 value={newUserName}
                 onChange={(e) => setNewUserName(e.target.value)}
                 placeholder="New user name"
+                className="add-user-input"
               />
-              <button onClick={handleAddUser}>Add</button>
+              <button className="add-user-button" onClick={handleAddUser}>Add</button>
             </div>
             {users.map(user => (
               <div 
                 key={user._id}
                 className={`user-option ${user._id === currentUser?._id ? 'active' : ''}`}
-              >
-                <span onClick={() => handleUserChange(user)}>
+                onClick={() => handleUserChange(user)}>
+                <span className="user-name">
                   {user.name}
                 </span>
-                <button 
-                  onClick={(e) => handleRemoveUser(user._id, e)}
-                  className="delete-user"
-                >
-                  ×
-                </button>
+                <button onClick={(e) => handleRemoveUser(user._id, e)}
+                  className="delete-user">×</button>
               </div>
             ))}
           </div>

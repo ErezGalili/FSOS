@@ -8,8 +8,7 @@ function Image({ url, breed, favorite, onToggleFavorite }) {
       <button
         className={`heart-button ${favorite ? 'favorite' : ''}`}
         aria-label="toggle favorite"
-        onClick={() => onToggleFavorite(url)}
-      >
+        onClick={() => onToggleFavorite(url)}>
         <i className={`fa ${favorite ? 'fa-heart' : 'fa-heart-o'}`} aria-hidden="true" />
       </button>
     </div>

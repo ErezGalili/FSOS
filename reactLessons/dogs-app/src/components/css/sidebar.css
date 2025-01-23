@@ -34,3 +34,8 @@
     background-color: white;
     color: black;
   }
+
+  .sidebar a {
+    color: white;
+    text-decoration: none;
+  }
