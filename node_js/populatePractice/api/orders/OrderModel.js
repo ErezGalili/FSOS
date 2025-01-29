@@ -35,14 +35,4 @@ OrderSchema.pre(/^find/, async function(next){
     next();
 });
 
-const CitySchema = new Schema({
-    name: {
-        type: String,
-        required: [true, 'City must have name'],
-        unique: true,
-        trim: true
-    }
-});
-
-module.exports = mongoose.model('City', CitySchema);
 module.exports = mongoose.model('Order', OrderSchema);

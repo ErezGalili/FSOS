@@ -8,6 +8,7 @@ export const DogsContextProvider = ({ children }) => {
     const [likedImages, setLikedImages] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [imageNames, setImageNames] = useState({});
 
     useEffect(() => {
         updateAllUsers();
@@ -50,6 +51,10 @@ export const DogsContextProvider = ({ children }) => {
 
     const removeFromFavorites = async (favoriteId) => {
         try {
+            const favoriteToRemove = likedImages.find(img => img._id === favoriteId);
+            if (favoriteToRemove && currentUser.profilePicture === favoriteToRemove.imageSrc) {
+                await unsetProfilePicture();
+            }
             await deleteFavorite(currentUser._id, favoriteId);
             await updateAllFavorites();
         } catch (error) {
@@ -107,6 +112,39 @@ export const DogsContextProvider = ({ children }) => {
         }
     };
 
+    const updateImageName = (imageUrl, name) => {
+        setImageNames(prev => ({
+            ...prev,
+            [imageUrl]: name
+        }));
+    };
+
+    const setProfilePicture = async (imageUrl) => {
+        if (!currentUser) return;
+        try {
+            // Assuming you have an API endpoint to update user profile picture
+            // await updateUserProfilePic(currentUser._id, imageUrl);
+            setCurrentUser({
+                ...currentUser,
+                profilePicture: imageUrl
+            });
+        } catch (error) {
+            console.error('Error updating profile picture:', error);
+        }
+    };
+
+    const unsetProfilePicture = async () => {
+        if (!currentUser) return;
+        try {
+            setCurrentUser({
+                ...currentUser,
+                profilePicture: ''
+            });
+        } catch (error) {
+            console.error('Error unsetting profile picture:', error);
+        }
+    };
+
     return (
         <DogsContext.Provider value={{
             currentUser,
@@ -118,7 +156,11 @@ export const DogsContextProvider = ({ children }) => {
             removeUser,
             addToFavorites,
             removeFromFavorites,
-            updateAllFavorites
+            updateAllFavorites,
+            imageNames,
+            updateImageName,
+            setProfilePicture,
+            unsetProfilePicture,
         }}>
             {children}
         </DogsContext.Provider>

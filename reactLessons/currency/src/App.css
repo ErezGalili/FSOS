@@ -1,0 +1,149 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #1a1a1a;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #1a1a1a;
+  margin-left: 250px;
+  min-height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  border-right: 1px solid #333;
+  height: 100vh;
+  background-color: #242424;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  margin: 10px 0;
+}
+
+.sidebar-nav a {
+  text-decoration: none;
+  color: #ccc;
+  padding: 8px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-nav a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Currency page styles */
+.currency-page {
+  padding: 20px;
+}
+
+.currency-page h1 {
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.currency-list {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.currency-item {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #242424;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #fff;
+}
+
+.currency-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  background-color: #2a2a2a;
+}
+
+/* Home page styles */
+.home-page {
+  text-align: center;
+  margin-top: 50px;
+  color: #fff;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #ccc;
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  padding: 20px;
+}

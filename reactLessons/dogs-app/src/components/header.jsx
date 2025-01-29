@@ -5,7 +5,7 @@ import { useDogsContext } from "./context";
 function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [newUserName, setNewUserName] = useState("");
-  const { currentUser, setCurrentUser, users, addUser, removeUser } = useDogsContext();
+  const { currentUser, setCurrentUser, users, addUser, removeUser, unsetProfilePicture } = useDogsContext();
 
   const handleUserChange = async (user) => {
     await setCurrentUser(user);
@@ -41,8 +41,13 @@ function Header() {
           <div 
             className="user-circle" 
             onClick={() => setShowUserMenu(!showUserMenu)}
+            style={currentUser.profilePicture ? {
+              backgroundImage: `url(${currentUser.profilePicture})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            } : {}}
           >
-            {currentUser.name[0]}
+            {!currentUser.profilePicture && currentUser.name[0]}
           </div>
         ) : (
           <button className="select-user-button" onClick={() => setShowUserMenu(!showUserMenu)}>
@@ -61,6 +66,11 @@ function Header() {
               />
               <button className="add-user-button" onClick={handleAddUser}>Add</button>
             </div>
+            {currentUser?.profilePicture && (
+              <div className="menu-option" onClick={unsetProfilePicture}>
+                Remove Profile Picture
+              </div>
+            )}
             {users.map(user => (
               <div 
                 key={user._id}

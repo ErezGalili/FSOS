@@ -11,3 +11,34 @@
     object-fit: contain;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+
+.image-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.image-actions button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.image-actions form {
+  display: flex;
+  gap: 4px;
+}
+
+.image-actions input {
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+}

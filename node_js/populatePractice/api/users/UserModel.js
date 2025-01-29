@@ -19,7 +19,12 @@ const UserSchema = new Schema({
     photo: String,
     created: Date,
     modified: Date,
-    permission: {}
+    permission: {},
+    city: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'City',
+        required: [true, 'User must belong to a city']
+    }
 });
 
 UserSchema.pre('save', function(next) {
@@ -28,6 +33,14 @@ UserSchema.pre('save', function(next) {
     }
     const salt = bcrypt.genSaltSync(12);
     this.password = bcrypt.hashSync(this.password, salt);
+    next();
+});
+
+UserSchema.pre(/^find/, function(next) {
+    this.populate({
+        path: 'city',
+        select: 'name'
+    });
     next();
 });
 
