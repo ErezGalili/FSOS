@@ -7,11 +7,13 @@ const productRouter = require("./api/products/productRouter")
 const userRouter = require("./api/users/UserRouter")
 const commentRouter = require("./api/comments/commentRouter")
 const cityRouter = require("./api/cities/cityRouter")
+const orderRouter = require("./api/orders/orderRouter")
 
 app.use('/api/products', productRouter);
 app.use('/api/users',userRouter);
 app.use('/api/comments',commentRouter);
 app.use('/api/cities', cityRouter);
+app.use('/api/orders', orderRouter);
 
 mongoose.connect(config.mongoUri, config.mongoOptions)
     .then(() => console.log('Connected to MongoDB'))

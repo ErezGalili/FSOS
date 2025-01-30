@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
 
 function Sidebar() {
   const [currencies, setCurrencies] = useState({});
+  const location = useLocation();
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -15,26 +17,23 @@ function Sidebar() {
         console.error('Error fetching currencies:', error);
       }
     };
-
     fetchCurrencies();
   }, []);
+
+  useEffect(() => {
+    const currentCurrency = location.pathname.split('/')[1];
+    setSelectedCurrency(currentCurrency);
+  }, [location]);
 
   return (
     <div className="sidebar">
       <h2 className="sidebar-title">Currencies</h2>
-      <nav className="sidebar-nav">
-        <ul className="sidebar-list">
+      <nav className="sidebar-nav"><ul className="sidebar-list">
           {Object.entries(currencies).map(([code, details]) => (
-            <li key={code} className="sidebar-item">
-              <Link to={`/${code}`} className="sidebar-link">
-                {details.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
-  );
+            <li key={code} className={`sidebar-item ${selectedCurrency === code ? 'selected' : ''}`}>
+              <Link to={`/${code}`} className="sidebar-link">{details.name}</Link>
+            </li>))}</ul></nav>
+    </div>);
 }
 
 export default Sidebar;

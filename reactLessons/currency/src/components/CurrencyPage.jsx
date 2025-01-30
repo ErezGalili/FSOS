@@ -8,6 +8,7 @@ function CurrencyPage() {
   const [rates, setRates] = useState(null);
   const [currencies, setCurrencies] = useState({});
   const [loading, setLoading] = useState(true);
+  const [multiplier, setMultiplier] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +29,11 @@ function CurrencyPage() {
     fetchData();
   }, [currencyCode]);
 
+  const multiplierChange = (e) => {
+    const value = Math.max(1, e.target.value);
+    setMultiplier(value);
+  };
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -39,10 +45,11 @@ function CurrencyPage() {
   return (
     <div className="currency-page">
       <h1>{currencies[currencyCode]?.name}</h1>
+      <span>Multiplayer:</span> <input type="number" value={multiplier} onChange={multiplierChange}/> {currencies[currencyCode]?.symbol}
       <ul className="currency-list">
         {Object.entries(rates.rates).map(([code, rate]) => (
           <li key={code} className="currency-item">
-            {currencies[code]?.name}: {rate}{currencies[code]?.symbol}
+            {currencies[code]?.name}: {rate * multiplier}{currencies[code]?.symbol}
           </li>
         ))}
       </ul>
