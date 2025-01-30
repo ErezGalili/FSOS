@@ -57,7 +57,7 @@
 
 /* Sidebar styles */
 .sidebar {
-  width: 250px;
+  max-width: 300px;
   padding: 20px;
   border-right: 1px solid #333;
   height: 100vh;
@@ -114,6 +114,9 @@
 }
 
 .currency-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 10px 0;
   padding: 15px;
   background-color: #242424;
@@ -127,6 +130,71 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   background-color: #2a2a2a;
+}
+
+.currency-flag {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.sidebar-link .currency-flag {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
+}
+
+.currency-item .currency-flag {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.country-flag {
+  font-size: 1.5em;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.currency-item .country-flag {
+  font-size: 1.2em;
+}
+
+.currency-symbol {
+  margin-right: 8px;
+  font-size: 1.1em;
+  display: inline-block;
+  min-width: 20px;
+}
+
+.currency-name {
+  flex: 1;
+}
+
+.currency-rate {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.multiplier-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.multiplier-container input {
+  width: 100px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #333;
+  color: #fff;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
 }
 
 /* Home page styles */

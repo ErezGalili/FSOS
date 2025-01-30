@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { getCountryFlag } from '../utils/flags';
 import '../App.css';
 
 function CurrencyPage() {
@@ -30,7 +31,7 @@ function CurrencyPage() {
   }, [currencyCode]);
 
   const multiplierChange = (e) => {
-    const value = Math.max(1, e.target.value);
+    const value = Math.max(0, e.target.value);
     setMultiplier(value);
   };
 
@@ -44,12 +45,24 @@ function CurrencyPage() {
 
   return (
     <div className="currency-page">
-      <h1>{currencies[currencyCode]?.name}</h1>
-      <span>Multiplayer:</span> <input type="number" value={multiplier} onChange={multiplierChange}/> {currencies[currencyCode]?.symbol}
+      <h1>
+        <span className="currency-symbol">{currencies[currencyCode]?.symbol}</span>
+        {currencies[currencyCode]?.name} ({currencyCode})
+      </h1>
+      <div className="multiplier-container">
+        <span>Multiplier:</span>
+        <input type="number" value={multiplier} onChange={multiplierChange}/>
+        <span className="currency-symbol">{currencies[currencyCode]?.symbol}</span>
+      </div>
       <ul className="currency-list">
         {Object.entries(rates.rates).map(([code, rate]) => (
           <li key={code} className="currency-item">
-            {currencies[code]?.name}: {rate * multiplier}{currencies[code]?.symbol}
+            <span className="country-flag">{getCountryFlag(code)}</span>
+            <span className="currency-symbol">{currencies[code]?.symbol}</span>
+            <span className="currency-name">{currencies[code]?.name}</span>
+            <span className="currency-rate">
+              {(rate * multiplier).toFixed(2)} {currencies[code]?.symbol}
+            </span>
           </li>
         ))}
       </ul>
