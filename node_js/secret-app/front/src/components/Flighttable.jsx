@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import flightsApi from '../utils/flightsApi'
 
 const FlightRow = (props) => {
-    const { source, destination, passengers, price, date } = props
+    const { source, destination, passengers, price, time } = props
     return (
         <tr>
             <td>{source}</td>
             <td>{destination}</td>
             <td>{passengers}</td>
-            <td>{price}USD</td>
-            <td>{date}</td>
+            <td>{price}$</td>
+            <td>{time.slice(0, 16).replace('T', ' ')}</td>
         </tr>
     )
 }
@@ -37,9 +38,9 @@ const FlightPage = () => {
     const [flights, setFlights] = useState([])
     const [error, setError] = useState('')
     useEffect(() => {
-        fetch('http://localhost:3000/flights')
-            .then(res => res.json())
-            .then(data => setFlights(data))
+        flightsApi.getFlights()
+            .then(setFlights)
+            .catch(setError)
     }, [])
     return (
         <div>

@@ -17,9 +17,9 @@ const APICall = async (url, method, body) => {
         })
 }
 
-const getFlights = () => APICall('', 'GET');
+const getFlights = () => APICall('/', 'GET');
 const getFlight = (id) => APICall(`/${id}`, 'GET');
-const createFlight = (flight) => APICall('', 'POST', flight);
+const createFlight = (flight) => APICall('/', 'POST', flight);
 const updateFlight = (id, flight) => APICall(`/${id}`, 'PATCH', flight);
 const deleteFlight = (id) => APICall(`/${id}`, 'DELETE');
 

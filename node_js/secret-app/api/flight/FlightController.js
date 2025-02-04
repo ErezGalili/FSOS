@@ -4,6 +4,9 @@ const flightController = {
     getAllFlights: async (req, res) => {
         try {
             const flights = await Flight.find();
+            if (!flights || flights.length === 0) {
+                return res.status(200).json({success: true, data: []});
+            }
             res.status(200).json({success: true, data: flights});
         } catch (error) {
             res.status(500).json({success: false, message: error.message });
