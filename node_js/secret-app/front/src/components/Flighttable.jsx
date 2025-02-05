@@ -5,7 +5,7 @@ const FlightRow = (props) => {
     const { source, destination, passengers, price, time } = props
     return (
         <tr>
-            <td>{source}</td>
+            <td>{source}</td> 
             <td>{destination}</td>
             <td>{passengers}</td>
             <td>{price}$</td>
