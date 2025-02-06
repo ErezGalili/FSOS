@@ -1,27 +1,175 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flight-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  th, td {
-    padding: 8px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+th,
+td {
     text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-
+    padding: 12px 15px;
+    word-break: break-word;
 }
 
-.error{
-  color: red;
+th {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #495057;
 }
 
-.tableError{
-  text-align: center;
+td {
+    border-bottom: 1px solid #dee2e6;
+}
+
+th,
+td {
+    width: auto;
+}
+
+th:nth-child(1), td:nth-child(1),
+th:nth-child(2), td:nth-child(2) {
+    width: 20%;
+}
+
+th:nth-child(3), td:nth-child(3),
+th:nth-child(4), td:nth-child(4) {
+    width: 10%;
+}
+
+th:nth-child(5), td:nth-child(5) {
+    width: 20%;
+}
+
+th:nth-child(6), td:nth-child(6),
+th:nth-child(7), td:nth-child(7) {
+    width: 10%;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tr:hover {
+    background-color: #e9ecef;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.tableError {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+}
+
+table button {
+    width: auto;
+    padding: 8px 12px;
+    margin: 2px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+table button:hover {
+    background-color: #0056b3;
+}
+
+.add-flight-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+    background-color: #1e7e34;
+}
+
+.flightForm {
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.flightForm div {
+    margin-bottom: 15px;
+}
+
+.flightForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.flightForm input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.2s ease
+}
+
+.flightForm input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit:hover {
+    background-color: #0056b3;
+}
+
+.submit:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.submit:disabled:hover {
+    background-color: #6c757d;
 }
