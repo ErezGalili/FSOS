@@ -24,20 +24,31 @@ const flightController = {
     },
 
     createFlight: async (req, res) => {
-        const flight = new Flight(req.body);
         try {
+            const { time, ...flightData } = req.body;
+            const flight = new Flight({
+                ...flightData,
+                // Store time as UTC
+                time: new Date(time) // Convert time string to Date object
+            });
             const newFlight = await flight.save();
-            res.status(201).json({success: true, data: newFlight});
+            res.status(201).json({ success: true, data: newFlight });
         } catch (error) {
-            res.status(400).json({success: false, message: error.message });
+            res.status(400).json({ success: false, message: error.message });
         }
     },
 
     updateFlight: async (req, res) => {
         try {
-            const flight = await Flight.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-            if (!flight) return res.status(404).json({success: false, message: 'Flight not found' });
-            res.status(200).json({success: true, data: flight});
+            const { time, ...flightData } = req.body;
+            const updateData = {
+                ...flightData,
+                // Store time as UTC if provided
+                time: time ? new Date(time) : undefined // Convert time string to Date object if provided
+            };
+            const flight = await Flight.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
+            if (!flight) return res.status(404).json({ success: false, message: 'Flight not found' });
+            res.status(200).json({ success: true, data: flight });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

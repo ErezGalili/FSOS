@@ -4,13 +4,22 @@ import FlightForm from './FlightForm'
 
 const FlightRow = (props) => {
     const { _id, source, destination, passengers, price, time, onEdit, onDelete } = props
+    // Convert UTC to local time for display
+    const localTime = new Date(time).toLocaleString('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
     return (
         <tr className="flightRow">
             <td>{source}</td> 
             <td>{destination}</td>
             <td>{passengers}</td>
             <td>{price}$</td>
-            <td>{time.slice(0, 16).replace('T', ' ')}</td>
+            <td>{localTime}</td>
             <td><button onClick={() => onEdit(_id)}>Edit</button></td>
             <td><button onClick={() => onDelete(_id)}>Delete</button></td>
         </tr>

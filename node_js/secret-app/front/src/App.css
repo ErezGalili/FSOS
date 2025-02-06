@@ -169,7 +169,3 @@ table button:hover {
     background-color: #6c757d;
     cursor: not-allowed;
 }
-
-.submit:disabled:hover {
-    background-color: #6c757d;
-}
