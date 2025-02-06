@@ -17,9 +17,8 @@ const FlightForm = ({flightID, setError, onSuccess}) => {
         if(!flightID) return
         flightsApi.getFlight(flightID)
             .then(flight => {
-                // Convert UTC to local time for form
-                const date = new Date(flight.time);
-                const formattedTime = date.toISOString().slice(0, 16);
+                // Format the date string for datetime-local input
+                const formattedTime = flight.time ? flight.time.slice(0, 16) : '';
                 setForm({...flight, time: formattedTime})
             })
             .catch(setError)
@@ -35,17 +34,12 @@ const FlightForm = ({flightID, setError, onSuccess}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Ensure time is in UTC
-        const formattedForm = {
-            ...form,
-            time: new Date(form.time).toISOString()
-        }
         if (flightID) {
-            flightsApi.updateFlight(flightID, formattedForm)
+            flightsApi.updateFlight(flightID, form)
                 .then(onSuccess)
                 .catch(setError)
         } else {
-            flightsApi.createFlight(formattedForm)
+            flightsApi.createFlight(form)
                 .then(onSuccess)
                 .catch(setError)
         }
