@@ -24,6 +24,13 @@ const flightController = {
     },
 
     createFlight: async (req, res) => {
+        if (!req.user.isAdmin) {
+            return res.status(403).json({
+                success: false,
+                message: 'Admin access required'
+            });
+        }
+        
         const flight = new Flight(req.body);
         try {
             const newFlight = await flight.save();
@@ -34,16 +41,30 @@ const flightController = {
     },
 
     updateFlight: async (req, res) => {
+        if (!req.user.isAdmin) {
+            return res.status(403).json({
+                success: false,
+                message: 'Admin access required'
+            });
+        }
+
         try {
             const flight = await Flight.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
             if (!flight) return res.status(404).json({success: false, message: 'Flight not found' });
             res.status(200).json({success: true, data: flight});
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            res.status(400).json({success: false, message: error.message });
         }
     },
 
     deleteFlight: async (req, res) => {
+        if (!req.user.isAdmin) {
+            return res.status(403).json({
+                success: false,
+                message: 'Admin access required'
+            });
+        }
+
         try {
             const flight = await Flight.findByIdAndDelete(req.params.id);
             if (!flight) return res.status(404).json({success: false, message: 'Flight not found' });

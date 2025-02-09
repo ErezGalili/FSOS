@@ -1,24 +1,28 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
-const flightRouter = require('./api/flight/FlightRouter');
-const userRouter = require('./api/user/UserRouter');
-const auth = require('./api/user/auth');
-const dotenv = require('dotenv').config();
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const flightRoutes = require('./api/flight/FlightRouter');
+const userRoutes = require('./api/user/UserRouter');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+app.use('/flight', flightRoutes);
+app.use('/users', userRoutes);
 
-app.use('/users', userRouter);
-app.use('/flights', auth, flightRouter);
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Error connecting to MongoDB', err));
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Server running on port ' + PORT);
 });
 

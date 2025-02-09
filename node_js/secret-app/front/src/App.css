@@ -4,11 +4,19 @@
     box-sizing: border-box;
 }
 
+.app {
+    position: relative;
+    min-height: 100vh;
+    padding: 20px;
+}
+
 .flight-container {
     padding: 20px;
     font-family: Arial, sans-serif;
+    margin-top: 20px;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -19,10 +27,10 @@ table {
     table-layout: fixed;
 }
 
-th,
-td {
+th, td {
     text-align: left;
-    padding: 12px 15px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
     word-break: break-word;
 }
 
@@ -30,35 +38,6 @@ th {
     background-color: #343a40;
     color: white;
     font-weight: bold;
-    border-bottom: 2px solid #495057;
-}
-
-td {
-    border-bottom: 1px solid #dee2e6;
-}
-
-th,
-td {
-    width: auto;
-}
-
-th:nth-child(1), td:nth-child(1),
-th:nth-child(2), td:nth-child(2) {
-    width: 20%;
-}
-
-th:nth-child(3), td:nth-child(3),
-th:nth-child(4), td:nth-child(4) {
-    width: 10%;
-}
-
-th:nth-child(5), td:nth-child(5) {
-    width: 20%;
-}
-
-th:nth-child(6), td:nth-child(6),
-th:nth-child(7), td:nth-child(7) {
-    width: 10%;
 }
 
 tr:nth-child(even) {
@@ -69,35 +48,145 @@ tr:hover {
     background-color: #e9ecef;
 }
 
-.error {
-    color: red;
-    margin-bottom: 10px;
-    display: block;
+/* User Menu Styles */
+.user-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
-.tableError {
-    text-align: center;
-    padding: 20px;
-    color: #6c757d;
-}
-
-table button {
-    width: auto;
-    padding: 8px 12px;
-    margin: 2px;
+.user-menu-button {
+    padding: 8px 16px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
-table button:hover {
-    background-color: #0056b3;
+.user-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 16px;
+    min-width: 300px;
+    max-width: 400px;
+    border: 1px solid #ddd;
 }
 
-.add-flight-section {
+.switch-button {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.switch-button:hover {
+    background-color: #138496;
+}
+
+.user-list {
+    margin-top: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.user-option {
+    width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.user-option:last-child {
+    border-bottom: none;
+}
+
+.user-option:hover {
+    background-color: #f8f9fa;
+}
+
+.user-option:disabled {
+    color: #6c757d;
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Form Styles */
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form input, .signup-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.login-button, .signup-button, .logout-button, .cancel-button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.login-button {
+    background-color: #28a745;
+}
+
+.logout-button {
+    background-color: #dc3545;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+}
+
+.signup-button {
+    background-color: #28a745;
+}
+
+.login-button:hover {
+    background-color: #218838;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+.signup-button:hover {
+    background-color: #218838;
+}
+
+/* Admin Controls */
+.admin-controls {
     margin-top: 20px;
     text-align: center;
 }
@@ -110,13 +199,52 @@ table button:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .add-button:hover {
-    background-color: #1e7e34;
+    background-color: #218838;
+    transform: translateY(-1px);
 }
 
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.edit-button, .delete-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em;
+    min-width: 70px;
+}
+
+.edit-button {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Flight Form */
 .flightForm {
     margin: 20px auto;
     max-width: 500px;
@@ -141,35 +269,143 @@ table button:hover {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    transition: border-color 0.2s ease
 }
 
-.flightForm input:focus {
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+.error {
+    color: red;
+    margin: 10px 0;
+    display: block;
 }
 
-.submit {
+/* Current User Display */
+.current-user {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Auth Buttons Container */
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Edit Form Container */
+.edit-form-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.edit-form-container .cancel-button {
+    margin-top: 10px;
+}
+
+/* Switch Login Modal */
+.switch-login-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 300px;
+}
+
+.switch-login-modal h3 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #343a40;
+}
+
+.switch-login-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.switch-login-modal input {
     width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.user-switch-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.switch-auth-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.switch-login-button,
+.switch-signup-button {
+    flex: 1;
+    padding: 8px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    color: white;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
 }
 
-.submit:hover {
+.switch-login-button {
+    background-color: #007bff;
+}
+
+.switch-signup-button {
+    background-color: #28a745;
+}
+
+.switch-login-button:hover {
     background-color: #0056b3;
 }
 
-.submit:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
+.switch-signup-button:hover {
+    background-color: #218838;
 }
 
-.submit:disabled:hover {
-    background-color: #6c757d;
+/* Auth Form Container */
+.auth-form-container {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+/* Inline Edit Form */
+.editing-row {
+    background-color: #f8f9fa !important;
+}
+
+.inline-edit-form {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.inline-edit-form .flightForm {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: none;
+}
+
+.inline-edit-form .cancel-button {
+    margin-top: 10px;
+    width: 100%;
 }

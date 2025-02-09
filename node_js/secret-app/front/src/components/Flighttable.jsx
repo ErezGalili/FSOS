@@ -1,107 +1,134 @@
-import React, { useState, useEffect } from 'react'
-import flightsApi from '../utils/flightsApi'
-import FlightForm from './FlightForm'
+import React, { useState, useEffect } from 'react';
+import flightsApi from '../utils/flightsApi';
+import AdminControls from './AdminControls';
+import FlightForm from './FlightForm';
 
-const FlightRow = (props) => {
-    const { _id, source, destination, passengers, price, time, onEdit, onDelete } = props
-    return (
-        <tr className="flightRow">
-            <td>{source}</td> 
-            <td>{destination}</td>
-            <td>{passengers}</td>
-            <td>{price}$</td>
-            <td>{time.slice(0, 16).replace('T', ' ')}</td>
-            <td><button onClick={() => onEdit(_id)}>Edit</button></td>
-            <td><button onClick={() => onDelete(_id)}>Delete</button></td>
-        </tr>
-    )
-}
-
-const Flighttable = (props) => {
-    const { flights, setFlights, setError, onSuccess } = props
-    const [editID, setEditID] = useState()
-    
-    const handleDelete = (id) => {
-        flightsApi.deleteFlight(id)
-            .then(() => {
-                setFlights(flights.filter(flight => flight._id !== id))
-            })
-            .catch(error => console.error('Delete failed:', error))
-    }
-
-    const onEditSuccess = () => {
-        flightsApi.getFlights()
-            .then(setFlights)
-            .then(onSuccess)
-            .catch(setError)
-        setEditID(null)
-    }
-
-    const handleEdit = (id) => {
-        setEditID(id);
-    }
-
-    return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Destination</th>
-                    <th>Passengers</th>
-                    <th>Price</th>
-                    <th>Date</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {flights.length ? flights.map((flight) => (
-                    <React.Fragment key={flight._id}>
-                        <FlightRow {...flight} onEdit={handleEdit} onDelete={handleDelete} />
-                        {editID === flight._id && (
-                            <tr>
-                                <td colSpan="7">
-                                    <FlightForm flightID={editID} onSuccess={onEditSuccess} setError={setError} />
-                                </td>
-                            </tr>
-                        )}
-                    </React.Fragment>
-                )) : (<tr><td className="tableError" colSpan="7">No flights available</td></tr>)}
-            </tbody>
-        </table>
-    )
-}
-
-const FlightPage = () => {
-    const [flights, setFlights] = useState([])
-    const [error, setError] = useState('')
-    const [showAddForm, setShowAddForm] = useState(false)
+function Flighttable() {
+    const [flights, setFlights] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [editingFlight, setEditingFlight] = useState(null);
 
     useEffect(() => {
-        flightsApi.getFlights()
-            .then(setFlights)
-            .catch(setError)
-    }, [])
+        const userData = localStorage.getItem('userData');
+        if (userData) {
+            const user = JSON.parse(userData);
+            setIsAdmin(user.isAdmin);
+        }
+    }, []);
 
-    const handleAddSuccess = () => {
+    const fetchFlights = () => {
+        if (!isAuthenticated) {
+            setError('Please login to view flights');
+            setLoading(false);
+            return;
+        }
+
         flightsApi.getFlights()
-            .then(setFlights)
-            .catch(setError)
-        setShowAddForm(false)
-    }
+            .then(data => {
+                setFlights(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                if (err.message.includes('401')) {
+                    setError('Please login to view flights');
+                    localStorage.removeItem('token');
+                    setIsAuthenticated(false);
+                } else {
+                    setError('Error fetching flights');
+                }
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchFlights();
+    }, [isAuthenticated]);
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this flight?')) {
+            try {
+                await flightsApi.deleteFlight(id);
+                fetchFlights();
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+    };
+
+    if (loading) return <p>Loading flights...</p>;
+    if (error) return <p className="error">{error}</p>;
+    if (!isAuthenticated) return <p>Please login to view flights</p>;
 
     return (
         <div className="flight-container">
-            <span className='error'>{error && <p>{error}</p>}</span>
-            <Flighttable flights={flights} setFlights={setFlights} setError={setError} onSuccess={() => setError('')} />
-            <div className="add-flight-section">
-                <button className="add-button" onClick={() => setShowAddForm(!showAddForm)}>
-                    {showAddForm ? 'Cancel' : 'Add Flight'}
-                </button>
-                {showAddForm && <FlightForm onSuccess={handleAddSuccess} setError={setError} />}
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Passengers</th>
+                        <th>Price</th>
+                        <th>Time</th>
+                        {isAdmin && <th>Actions</th>}
+                    </tr>
+                </thead>
+                <tbody>
+                    {flights.map(flight => (
+                        editingFlight === flight._id ? (
+                            <tr key={flight._id} className="editing-row">
+                                <td colSpan={isAdmin ? 6 : 5}>
+                                    <div className="inline-edit-form">
+                                        <FlightForm
+                                            flightID={flight._id}
+                                            setError={setError}
+                                            onSuccess={() => {
+                                                setEditingFlight(null);
+                                                fetchFlights();
+                                            }}
+                                        />
+                                        <button
+                                            className="cancel-button"
+                                            onClick={() => setEditingFlight(null)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ) : (
+                            <tr key={flight._id}>
+                                <td>{flight.source}</td>
+                                <td>{flight.destination}</td>
+                                <td>{flight.passengers}</td>
+                                <td>{flight.price}</td>
+                                <td>{new Date(flight.time).toLocaleString()}</td>
+                                {isAdmin && (
+                                    <td className="action-buttons">
+                                        <button 
+                                            className="edit-button" 
+                                            onClick={() => setEditingFlight(flight._id)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button 
+                                            className="delete-button" 
+                                            onClick={() => handleDelete(flight._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                )}
+                            </tr>
+                        )
+                    ))}
+                </tbody>
+            </table>
+            {isAdmin && <AdminControls onFlightAdded={fetchFlights} />}
         </div>
-    )
+    );
 }
 
-export default FlightPage
+export default Flighttable;
