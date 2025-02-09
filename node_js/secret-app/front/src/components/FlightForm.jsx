@@ -17,7 +17,6 @@ const FlightForm = ({flightID, setError, onSuccess}) => {
         if(!flightID) return
         flightsApi.getFlight(flightID)
             .then(flight => {
-                // Format the date string for datetime-local input
                 const formattedTime = flight.time ? flight.time.slice(0, 16) : '';
                 setForm({...flight, time: formattedTime})
             })
