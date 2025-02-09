@@ -1,8 +1,6 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
-
+const cors = require('cors');
 const flightRoutes = require('./api/flight/FlightRouter');
 const userRoutes = require('./api/user/UserRouter');
 
@@ -14,15 +12,19 @@ app.use(express.json());
 app.use('/flight', flightRoutes);
 app.use('/users', userRoutes);
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/flightDB', {
+    serverSelectionTimeoutMS: 5000,
+    family: 4
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Error connecting to MongoDB', err));
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log('Server running on port ' + PORT);
+.then(() => {
+    console.log('Connected to MongoDB successfully');
+})
+.catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
 });
 
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
