@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { login, register, getUsers, switchToUser } from '../utils/authApi';
+import { login, register, getUsers, switchToUser, promoteUser } from '../utils/authApi';
 
 const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -138,12 +138,21 @@ const UserMenu = () => {
                 email: signUpData.email,
                 password: signUpData.password
             });
+            
+            // Update local storage with new user data
             localStorage.setItem('token', data.token);
             localStorage.setItem('userData', JSON.stringify(data.user));
+            
+            // Update state
             setUserData(data.user);
             setIsLoggedIn(true);
             setShowSignUpForm(false);
             setError('');
+            
+            // Fetch updated users list
+            await fetchUsers();
+            
+            // Refresh page
             window.location.reload();
         } catch (error) {
             setError(error.message);
@@ -177,6 +186,16 @@ const UserMenu = () => {
         setError('');
     };
 
+    const handlePromoteUser = async (userId) => {
+        try {
+            await promoteUser(userId);
+            setError('');
+            fetchUsers(); // Refresh user list
+        } catch (error) {
+            setError(error.message || 'Failed to promote user');
+        }
+    };
+
     return (
         <div className="user-menu">
             <button className="user-menu-button" onClick={() => setIsOpen(!isOpen)}>
@@ -202,14 +221,24 @@ const UserMenu = () => {
                                     <div className="user-switch-container">
                                         <div className="user-list">
                                             {users.map(user => (
-                                                <button
-                                                    key={user._id}
-                                                    className="user-option"
-                                                    onClick={() => handleSwitchAttempt(user)}
-                                                    disabled={user.email === userData.email}
-                                                >
-                                                    {user.email} {user.isAdmin ? '(Admin)' : ''}
-                                                </button>
+                                                <div key={user._id} className="user-list-item">
+                                                    <button
+                                                        className="user-option"
+                                                        onClick={() => handleSwitchAttempt(user)}
+                                                        disabled={user.email === userData.email}
+                                                    >
+                                                        {user.email} {user.isAdmin ? '(Admin)' : ''}
+                                                    </button>
+                                                    {userData.isAdmin && !user.isAdmin && (
+                                                        <button 
+                                                            className="promote-button"
+                                                            onClick={() => handlePromoteUser(user._id)}
+                                                            title="Promote to Admin"
+                                                        >
+                                                            👑
+                                                        </button>
+                                                    )}
+                                                </div>
                                             ))}
                                         </div>
                                         <div className="switch-auth-buttons">

@@ -28,29 +28,20 @@ const userController = {
             const user = new User({
                 email,
                 password,
-                name,
-                isAdmin: false  // Default to false for new users
+                name
             });
 
             await user.save();
 
             const token = jwt.sign(
-                { userId: user._id, email: user.email, isAdmin: user.isAdmin },
+                { userId: user._id, email: user.email },
                 JWT_SECRET,
                 { expiresIn: '1000h' }
             );
 
             res.status(201).json({
                 success: true,
-                data: { 
-                    token, 
-                    user: { 
-                        id: user._id, 
-                        email: user.email, 
-                        name: user.name,
-                        isAdmin: user.isAdmin 
-                    } 
-                }
+                data: { token, user: { id: user._id, email: user.email, name: user.name } }
             });
         } catch (error) {
             res.status(500).json({
@@ -64,16 +55,20 @@ const userController = {
         const { email, password } = req.body;
         try {
             const user = await User.findOne({ email });
-            if (!user || !(await user.comparePassword(password))) {
+            if (!user) {
                 return res.status(401).json({
                     success: false,
                     message: 'Invalid credentials'
                 });
             }
 
-            // Update last login time
-            user.lastLogin = new Date();
-            await user.save();
+            const isMatch = await user.comparePassword(password);
+            if (!isMatch) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Invalid credentials'
+                });
+            }
 
             const token = jwt.sign(
                 { userId: user._id, email: user.email, isAdmin: user.isAdmin },
@@ -83,16 +78,7 @@ const userController = {
 
             res.status(200).json({
                 success: true,
-                data: { 
-                    token, 
-                    user: { 
-                        id: user._id, 
-                        email: user.email, 
-                        name: user.name,
-                        isAdmin: user.isAdmin,
-                        lastLogin: user.lastLogin
-                    } 
-                }
+                data: { token, user: { id: user._id, email: user.email, name: user.name } }
             });
         } catch (error) {
             res.status(500).json({
@@ -169,48 +155,7 @@ const userController = {
         } catch (error) {
             res.status(500).json({success: false, message: error.message });
         }
-    },
-
-    switchUser: async (req, res) => {
-        try {
-            const user = await User.findById(req.params.id);
-            if (!user) {
-                return res.status(404).json({
-                    success: false,
-                    message: 'User not found'
-                });
-            }
-
-            // Update last login time
-            user.lastLogin = new Date();
-            await user.save();
-
-            const token = jwt.sign(
-                { userId: user._id, email: user.email, isAdmin: user.isAdmin },
-                JWT_SECRET,
-                { expiresIn: '1000h' }
-            );
-
-            res.status(200).json({
-                success: true,
-                data: { 
-                    token, 
-                    user: { 
-                        id: user._id, 
-                        email: user.email, 
-                        name: user.name,
-                        isAdmin: user.isAdmin,
-                        lastLogin: user.lastLogin
-                    } 
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
-    },
+    }
 };
 
 module.exports = userController;

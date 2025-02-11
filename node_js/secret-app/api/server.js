@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const userRouter = require('./user/UserRouter');
+const flightRouter = require('./flight/FlightRouter');
 
-app.use('/api/users', userRouter);
+app.use('/users', userRouter);
+app.use('/flight', flightRouter);
 
 // Add this line to debug routes
 app.use((req, res, next) => {

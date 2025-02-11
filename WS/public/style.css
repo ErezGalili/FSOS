@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+    background-color: rgba(56, 56, 56, 0);
+}
+
+#graph{
+    width: 50%;
+    height: 320px;
+    display: flex;
+    align-items: end;
+    border: solid white 1px;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: rgba(56, 56, 56, 0.5);
+    gap: 2px;
+    div{
+        width: 10px;
+        background-color: blue;
+        margin: 0 1px;
+    }
+}

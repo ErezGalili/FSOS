@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/flight';
+const BASE_URL = 'http://127.0.0.1:3000/flight';
 
 const APICall = async (url, method, body) => {
     method = method || 'GET';

@@ -65,4 +65,27 @@ const switchToUser = async (userId) => {
     return data.data;
 };
 
-export { login, register, getUsers, switchToUser };
+const promoteUser = async (userId) => {
+    try {
+        const response = await fetch(`${BASE_URL}/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to promote user');
+        }
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.message);
+        return data.data;
+    } catch (error) {
+        throw new Error(error.message || 'Failed to promote user');
+    }
+};
+
+export { login, register, getUsers, switchToUser, promoteUser };

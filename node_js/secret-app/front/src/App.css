@@ -1,3 +1,25 @@
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #404040;
+    --hover-bg: #3d3d3d;
+    --primary-button: #2563eb;
+    --primary-button-hover: #1d4ed8;
+    --danger-button: #dc2626;
+    --danger-button-hover: #b91c1c;
+    --success-button: #16a34a;
+    --success-button-hover: #15803d;
+    --warning-button: #d97706;
+    --warning-button-hover: #b45309;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +30,7 @@
     position: relative;
     min-height: 100vh;
     padding: 20px;
+    background-color: var(--bg-primary);
 }
 
 .flight-container {
@@ -16,7 +39,6 @@
     margin-top: 20px;
 }
 
-/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -25,27 +47,29 @@ table {
     border-radius: 5px;
     overflow: hidden;
     table-layout: fixed;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
 }
 
 th, td {
     text-align: left;
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     word-break: break-word;
+    color: var(--text-primary);
 }
 
 th {
-    background-color: #343a40;
-    color: white;
-    font-weight: bold;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 tr:nth-child(even) {
-    background-color: #f8f9fa;
+    background-color: var(--bg-primary);
 }
 
 tr:hover {
-    background-color: #e9ecef;
+    background-color: var(--hover-bg);
 }
 
 /* User Menu Styles */
@@ -58,11 +82,15 @@ tr:hover {
 
 .user-menu-button {
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: var(--primary-button);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.user-menu-button:hover {
+    background-color: var(--primary-button-hover);
 }
 
 .user-menu-dropdown {
@@ -70,13 +98,13 @@ tr:hover {
     top: 100%;
     right: 0;
     margin-top: 8px;
-    background-color: white;
+    background-color: var(--bg-secondary);
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 16px;
     min-width: 300px;
     max-width: 400px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
 }
 
 .switch-button {
@@ -99,8 +127,9 @@ tr:hover {
     margin-top: 8px;
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
+    background-color: var(--bg-primary);
 }
 
 .user-option {
@@ -109,9 +138,10 @@ tr:hover {
     text-align: left;
     background: none;
     border: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: background-color 0.2s;
+    color: var(--text-primary);
 }
 
 .user-option:last-child {
@@ -119,13 +149,44 @@ tr:hover {
 }
 
 .user-option:hover {
-    background-color: #f8f9fa;
+    background-color: var(--hover-bg);
 }
 
 .user-option:disabled {
-    color: #6c757d;
-    background-color: #e9ecef;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
     cursor: not-allowed;
+}
+
+/* User List Item */
+.user-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-list-item .user-option {
+    flex: 1;
+    border-bottom: none;
+}
+
+/* Promote Button */
+.promote-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 4px;
+    border-radius: 4px;
+    transition: transform 0.2s;
+    color: var(--warning-button);
+}
+
+.promote-button:hover {
+    transform: scale(1.2);
+    color: var(--warning-button-hover);
 }
 
 /* Form Styles */
@@ -138,8 +199,15 @@ tr:hover {
 .login-form input, .signup-form input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.login-form input:focus, .signup-form input:focus, .flightForm input:focus {
+    border-color: var(--primary-button);
+    outline: none;
 }
 
 /* Button Styles */
@@ -154,11 +222,11 @@ tr:hover {
 }
 
 .login-button {
-    background-color: #28a745;
+    background-color: var(--success-button);
 }
 
 .logout-button {
-    background-color: #dc3545;
+    background-color: var(--danger-button);
 }
 
 .cancel-button {
@@ -166,15 +234,15 @@ tr:hover {
 }
 
 .signup-button {
-    background-color: #28a745;
+    background-color: var(--success-button);
 }
 
 .login-button:hover {
-    background-color: #218838;
+    background-color: var(--success-button-hover);
 }
 
 .logout-button:hover {
-    background-color: #c82333;
+    background-color: var(--danger-button-hover);
 }
 
 .cancel-button:hover {
@@ -182,7 +250,7 @@ tr:hover {
 }
 
 .signup-button:hover {
-    background-color: #218838;
+    background-color: var(--success-button-hover);
 }
 
 /* Admin Controls */
@@ -194,7 +262,7 @@ tr:hover {
 .add-button {
     padding: 12px 24px;
     font-size: 16px;
-    background-color: #28a745;
+    background-color: var(--success-button);
     color: white;
     border: none;
     border-radius: 4px;
@@ -203,7 +271,7 @@ tr:hover {
 }
 
 .add-button:hover {
-    background-color: #218838;
+    background-color: var(--success-button-hover);
     transform: translateY(-1px);
 }
 
@@ -225,22 +293,22 @@ tr:hover {
 }
 
 .edit-button {
-    background-color: #ffc107;
-    color: #000;
+    background-color: var(--warning-button);
+    color: var(--text-primary);
 }
 
 .delete-button {
-    background-color: #dc3545;
+    background-color: var(--danger-button);
     color: white;
 }
 
 .edit-button:hover {
-    background-color: #e0a800;
+    background-color: var(--warning-button-hover);
     transform: translateY(-1px);
 }
 
 .delete-button:hover {
-    background-color: #c82333;
+    background-color: var(--danger-button-hover);
     transform: translateY(-1px);
 }
 
@@ -269,10 +337,12 @@ tr:hover {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .error {
-    color: red;
+    color: #ef4444;
     margin: 10px 0;
     display: block;
 }
@@ -280,10 +350,10 @@ tr:hover {
 /* Current User Display */
 .current-user {
     padding: 8px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 8px;
     font-size: 0.9em;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 /* Auth Buttons Container */
@@ -311,7 +381,7 @@ tr:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: var(--bg-secondary);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -322,7 +392,7 @@ tr:hover {
 .switch-login-modal h3 {
     margin-bottom: 15px;
     text-align: center;
-    color: #343a40;
+    color: var(--text-primary);
 }
 
 .switch-login-modal form {
@@ -384,17 +454,17 @@ tr:hover {
 .auth-form-container {
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 /* Inline Edit Form */
 .editing-row {
-    background-color: #f8f9fa !important;
+    background-color: var(--bg-secondary) !important;
 }
 
 .inline-edit-form {
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: var(--bg-secondary);
     border-radius: 4px;
 }
 
@@ -408,4 +478,8 @@ tr:hover {
 .inline-edit-form .cancel-button {
     margin-top: 10px;
     width: 100%;
+}
+
+input::placeholder {
+    color: var(--text-secondary);
 }
