@@ -7,7 +7,7 @@ const connections = new Set();
 
 setInterval(() => {
     const randomNumber = Math.random();
-    connections.forEach(ws => {
+    connections.forEach((ws) => {
         ws.send(JSON.stringify({ type: 'graph', data: randomNumber }));
     });
 }, 800);
@@ -16,30 +16,38 @@ wss.on('connection', (ws) => {
     connections.add(ws);
     console.log('Client connected');
     
-    ws.on('close', () => {
-        console.log('Client disconnected');
-        connections.delete(ws);
-    });
-    
-    ws.on('error', () => {
-        console.log('Client error');
-        connections.delete(ws);
+    ws.on('message', (rawMsg) => {
+        const msg = JSON.parse(rawMsg.toString());
+        if (msg.type === 'chat') {
+            connections.forEach(client => {
+                if (client.readyState === client.OPEN) {
+                    client.send(JSON.stringify({
+                        type: 'msg',
+                        username: msg.username,
+                        data: msg.message
+                    }));
+                }
+            });
+        } else if (msg.type === 'nameChange') {
+            connections.forEach(client => {
+                if (client.readyState === client.OPEN) {
+                    client.send(JSON.stringify({
+                        type: 'system',
+                        data: `${msg.oldUsername} changed their name to ${msg.newUsername}`
+                    }));
+                }
+            });
+        }
     });
 
-    ws.on('message', (msg) => {
-        msg = msg.toString();
-        console.log(`Received message: ${msg}`);
-        const l = msg.length;
-        const startWithDigit = !isNaN(msg[0]);
-        const endWithDigit = !isNaN(msg[l - 1]);
-        const response = `You sent a message of length ${l} that ${startWithDigit ? 'starts' : 'does not start'} with a digit and ${endWithDigit ? 'ends' : 'does not end'} with a digit`;
-        ws.send(JSON.stringify({ type: 'msg', data: response }));
-        
-        wss.clients.forEach((client) => {
-            if (client !== ws) {
-                client.send(JSON.stringify({ type: 'msg', data: msg }));
-            }
-        });
+    ws.on('close', () => {
+        connections.delete(ws);
+        console.log('Client disconnected');
+    });
+
+    ws.on('error', () => {
+        connections.delete(ws);
+        console.log('Client error');
     });
 });
 
